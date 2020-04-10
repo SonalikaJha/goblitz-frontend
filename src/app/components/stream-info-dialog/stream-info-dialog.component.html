@@ -1,0 +1,59 @@
+<!-- <i class="fa fa-cog text-lg fa-fw md:mx-2 mr-1" *ngIf="loginUserName == paramUserName"
+           (click)="menu.classList.toggle('hidden');openUpdateStreamInfoForm()"></i> -->
+<div class="fixed" style="z-index: 2000;
+                    top: 0;
+                    right: 0;
+                    left: 0;
+                    bottom: 0;
+                    margin: 0 auto;
+                    background: #00000059;" #menu>
+    <form class="bg-white shadow-md rounded pt-6 pb-8 mb-4 m-auto mt-16 text-sm w-1/3" [formGroup]="streamInfoForm" (ngSubmit)="updateStreamInfo()">
+        <div class="flex header justify-between mb-5 px-8">
+            <span>Edit Stream Information</span>
+            <span class="fa fa-times" (click)="menu.classList.add('hidden'); utilityService.streamInfoDialog = false;" (keyup.escape)="menu.classList.add('hidden')"></span>
+        </div>
+        <div class="form-body h-60 overflow-auto px-8">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="titleTextarea">
+                  Title <span class="pl-1 text-gray-500 text-xs"
+                              [innerText]="'(' + (160 - titleTextarea.value.length) + ')'"></span>
+                </label>
+                <textarea #titleTextarea formControlName="gameTitle" class="game-title-textarea appearance-none bg-gray-200 border border-transparent focus:border-theme-primary focus:outline-none focus:shadow-none focus:shadow-outline hover:border-theme-primary leading-tight px-3 py-2 rounded shadow w-full"
+                    id="titleTextarea" maxlength="160"></textarea>
+            </div>
+            <div class="mb-4">
+                <div class="flex justify-between">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="goLiveInfo">
+                    Game Description <span class="pl-1 text-gray-500 text-xs"
+                                       [innerText]="'(' + (160 - goLiveInfo.value.length) + ')'"></span>
+                  </label>
+                </div>
+                <textarea #goLiveInfo formControlName="goLiveInfo" class="go-live-textarea appearance-none bg-gray-200 border border-transparent focus:border-theme-primary focus:outline-none focus:shadow-none focus:shadow-outline hover:border-theme-primary leading-tight px-3 py-2 rounded shadow w-full"
+                    id="goLiveInfo" maxlength="160"></textarea>
+            </div>
+            <hr class="mb-3">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2">Games</label>
+                <div class="stream-language-select relative">
+                    <ngx-select-dropdown formControlName="selectData" [config]="gameconfig" [options]="this.utilityService.gameList"></ngx-select-dropdown>
+                </div>
+            </div>
+            <hr class="mb-3">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="tags">Tags</label>
+                <ngx-select-dropdown formControlName="tagData" [multiple]="true" [config]="tagconfig" [options]="this.utilityService.tagList"></ngx-select-dropdown>
+
+            </div>
+            <hr class="mb-3">
+            <input type="file" hidden id="uploadImg" (change)="changeThumbNailImg($event)" name="filename">
+            <button type="button" class="bg-theme-primary focus:outline-none hover:bg-red-700 focus:bg-red-700 hover:shadow px-4 py-1 rounded shadow text-white" (click)="uploadImage()">Upload Thumbnail</button>
+            <img [src]="this.thumbnailImg" *ngIf="this.thumbnailImg != undefined" style="width: 500px; height: 278px;">
+            <div>
+                <div class="my-3">
+                    <button class="bg-theme-primary focus:outline-none hover:bg-red-700 focus:bg-red-700 hover:shadow px-4 py-1 rounded shadow text-white" (click)="menu.classList.add('hidden');">Update</button>
+                    <button type="button" class="bg-gray-400 focus:bg-gray-500 focus:outline-none hover:bg-gray-500 hover:shadow ml-3 px-4 py-1 rounded shadow text-gray-900" (click)="menu.classList.add('hidden')">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

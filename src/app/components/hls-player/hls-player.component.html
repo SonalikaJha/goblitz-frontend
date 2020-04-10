@@ -1,0 +1,23 @@
+<div class="video-player" [ngClass]="{fullscreen: isFullscreen}" (mouseout)="hideAdditionalDetails()">
+    <img src="https://via.placeholder.com/1920x1080.jpg?text=Somebody+is+streaming" alt="">
+</div>
+<div class="video-controls py-2 px-4 flex justify-between" *ngIf="options.controls">
+    <div class="left-controls">
+        <i *ngIf="video.paused" class="cursor-pointer fa fa-play fa-fw" (click)="playVideo()"></i>
+        <i *ngIf="!video.paused" class="cursor-pointer fa fa-pause fa-fw" (click)="pauseVideo()"></i>
+        <span>Live</span>
+        <i class="live-button" title="Jump to live" (click)="jumpToLive()">&#x25CF;</i>
+    </div>
+    <div class="right-controls">
+        <i class="cursor-pointer fa fa-info fa-fw" *ngIf="options.streamerInfo" (mouseover)="showAdditionalDetails()"></i>
+        <i class="cursor-pointer fa fa-fw fa-tv" (click)="toggleTheatre()"></i>
+        <i class="cursor-pointer fa fa-expand fa-fw" *ngIf="!isFullscreen" (click)="requestFullscreen()"></i>
+        <i class="cursor-pointer fa fa-compress fa-fw" *ngIf="isFullscreen" (click)="exitFullscreen()"></i>
+    </div>
+</div>
+<div class="additionalDetails md:pl-6 md:pr-48 p-2" *ngIf="options.streamerInfo && additionalDetailsVisible || options.streamerInfoAlwaysVisible">
+    <div class="text-lg uppercase mb-2">{{ streamer.name || '' }}</div>
+    <div class="text-sm uppercase mb-2">{{ streamer.stream.name || '' }}</div>
+    <div class="text-xs">{{ (streamer.view || 0) + ' Viewers | ' + (streamer.followers || 0) + ' Followers' }}</div>
+    <div class="">{{ streamer.description || 0 }}</div>
+</div>

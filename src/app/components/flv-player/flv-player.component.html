@@ -1,0 +1,21 @@
+<video class="w-full" id="videoElement" controlsList="nodownload" #pRef ></video>
+<div class="video-controls py-2 px-4 flex justify-between" *ngIf="false">
+  <div class="left-controls">
+    <i *ngIf="video.paused" class="cursor-pointer fa fa-play fa-fw" (click)="playVideo()"></i>
+    <ng-content>
+
+    </ng-content>
+    <i class="cursor-pointer fa fa-pause fa-fw" (click)="pauseVideo()"></i>
+    <span>Live</span>
+    <i class="live-button" title="Jump to live">&#x25CF;</i>
+    <button (click)="playVideo()">start</button>
+    <button (click)="pauseVideo()">suspend</button>
+  </div>
+  <div class="right-controls">
+    <i class="cursor-pointer fa fa-info fa-fw"></i>
+    <i class="cursor-pointer fa fa-fw fa-tv"></i>
+    <i class="cursor-pointer fa fa-expand fa-fw"></i>
+    <i class="cursor-pointer fa fa-compress fa-fw"></i>
+  </div>
+</div>
+

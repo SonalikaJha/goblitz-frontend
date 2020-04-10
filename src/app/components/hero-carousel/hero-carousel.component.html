@@ -1,0 +1,106 @@
+<div class="container md:pt-8 pb-12 md:flex mx-auto">
+    <div class="w-full md:w-2/3 relative">
+        <a [routerLink]="'/' + stream.username + '/channel'" class="" *ngIf="
+        stream !== undefined && stream.streamOutputUrl !== '';
+        else no_streaming
+      ">
+            <app-flv-player [videoFormat]="'flv'" [controls]="false" [src]="stream?.streamOutputUrl"></app-flv-player>
+            <div class="home-page-stream bg-blue-600">
+                <div class="absolute top-0 stream-header left-0"></div>
+                <span class="live text-white"><span class="fa fa-circle text-theme-primary"></span> LIVE</span>
+                <div class="absolute bottom-0 channel-info flex left-0 p-4 w-full">
+                    <div class="pt-2 text-center user-image">
+                        <img [src]="
+                getImageUrl(
+                  stream.userProfileImage ? stream.userProfileImage : '',
+                  'userProfile'
+                )
+              " alt="" class="h-12 rounded-full mx-auto" />
+                    </div>
+                    <div class="text-white">
+                        <div class="mt-3 text-xs">
+                            {{ stream?.streamTitle ? stream?.streamTitle : "" }}
+                        </div>
+
+                        <div class="font-semibold text-lg">@{{ stream.username }}</div>
+                        <div class="text-sm">
+                            {{ stream.gameTitle && stream.gameTitle ? stream.gameTitle : "" }}
+                        </div>
+                        <div class="text-xs mt-1" *ngIf="false">
+                            <span>25.1K Viewers</span> |
+                            <span>3m Followers</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        <ng-template #no_streaming>
+            <a href="javascript:void(0)" class="">
+                <img src="../../../assets/images/main-cover.jpg" alt="" />
+            </a>
+        </ng-template>
+    </div>
+    <div class="w-full md:w-1/3">
+        <h5 class="text-red-600 text-center">Recent Broadcasts</h5>
+        <div class="vertical-slider">
+            <ng-container *ngIf="recentBroadcasts.length !== 0">
+                <a class="shadow-md image-container" [routerLink]="getPlaybackUrl(recentBroadcast)" *ngFor="let recentBroadcast of recentBroadcasts">
+                    <div style="overflow: hidden; width: 100%; height: 236px;min-width: 426px; background: #f1f1f1;">
+                        <img style="height: 100%;margin: 0px auto;" [src]="getImageUrl(recentBroadcast.streamImage, 'streamImage')" alt="" />
+                    </div>
+                    <div class="home-page-stream bg-blue-600">
+                        <div class="absolute top-0 stream-header left-0"></div>
+                        <div class="absolute bottom-0 channel-info flex left-0 p-4 w-full">
+                            <div class="text-center user-image">
+                                <img [src]="
+                    getImageUrl(
+                      recentBroadcast.userProfileImage
+                        ? recentBroadcast.userProfileImage
+                        : '',
+                      'userProfileImage'
+                    )
+                  " alt="" class="h-12 rounded-full mx-auto" />
+                            </div>
+                            <div class="text-white">
+                                <div class="text-sm" style="line-height: 20px;">
+                                    {{ recentBroadcast.gameTitle && recentBroadcast.streamTitle ? recentBroadcast.gameTitle : "" }}
+                                </div>
+                                <div class="font-semibold text-lg" style="line-height: 20px;">
+                                    @{{ recentBroadcast.username }}
+                                </div>
+
+                                <div class="text-xs mt-1" style="line-height: 10px;">
+                                    <span>{{
+                    recentBroadcast.totalPlaybackViews == 0
+                      ? ""
+                      : recentBroadcast.totalPlaybackViews + " Views"
+                  }}</span>
+                                    <!-- | <span>3m Followers</span> -->
+                                </div>
+                                <!-- <div class="mt-3 text-xs">
+                                    {{ recentBroadcast.streamDescription ? recentBroadcast.streamDescription : "" }}
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </ng-container>
+            <ng-container *ngIf="recentBroadcasts.length == 0">
+                <a class="shadow-md image-container" *ngFor="let item of [1,2,3,4,5]">
+
+                    <img class="shadow-md" src="../../../assets/images/carousel.jpg" alt="">
+
+                </a>
+            </ng-container>
+
+            <!--      <img class="shadow-md" src="../../../assets/images/carousel.jpg" alt="">-->
+            <!--      <img class="shadow-md" src="../../../assets/images/carousel.jpg" alt="">-->
+            <!--      <img class="shadow-md" src="../../../assets/images/carousel.jpg" alt="">-->
+            <!--      <img class="shadow-md" src="../../../assets/images/carousel.jpg" alt="">-->
+            <a href="JavaScript:void(0)" class="p-3 rounded-full bg-white absolute" style="top: 5px" (click)="getPrevious()"><i class="fa fa-fw fa-arrow-up"></i
+      ></a>
+            <a href="JavaScript:void(0)" class="p-3 rounded-full bg-white absolute" style="bottom: 5px" (click)="getNext()"><i class="fa fa-fw fa-arrow-down"></i
+      ></a>
+        </div>
+    </div>
+</div>

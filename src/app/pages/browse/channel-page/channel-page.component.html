@@ -1,0 +1,142 @@
+<!-- collection -->
+<!-- 
+<div class="container mx-auto md:flex items-center" >
+    
+    <div class="md:block flex item-center mb-1 md:ml-0 ml-4 md:mr-4 mr-0" style="margin-left: 2;">
+        <div class="font-medium tracking-wider mr-3 text-xs flex items-center" style="display: inline-block;"> Filter By
+        </div>
+        <form action="" style="display: inline-block;">
+
+            <select name="" (change)="addTag($event.target.value)"
+                class="border-gray-300 focus:border-pure-red hover:border-pure-red focus:outline-none text-gray-700 rounded border py-1 px-2 text-xs">
+                <option value="">Select an option</option>
+                <option *ngFor="let tag of alltag" [value]="tag.tag">{{ tag.tag }}</option>
+            </select>
+        </form>
+
+    </div>
+    <div class="md:block flex item-center mb-1 md:ml-0 ml-4 md:mr-4 mr-0" >
+        <div class="md:inline-flex w-auto hidden flex-grow">
+            <input name="searchText" [(ngModel)]="searchText" type="text" (keyup)="getLiveChannelList($event)"
+                class="bg-gray-100 p-2 text-xs rounded-sm focus:outline-none flex-grow" style="height: 30px;" placeholder="Search" />
+            <button  class="bg-gray-300 text-gray-500 px-4 rounded-sm"><i
+                    class="fa fa-search"></i></button>
+        </div>
+    </div>
+</div>
+
+
+<div class="container mx-auto pb-12">
+    <span *ngFor="let tag of tagsArray" class="bg-gray-300 text-gray-800 text-xs rounded 
+    px-4 py-1 mr-2 mb-2"> {{tag}}
+        <span (click)="removeTag(tag)">&times;</span>
+    </span>
+    <div class="flex flex-wrap">
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 my-4" *ngFor="let channel of liveChannel">
+            <div class="p-1 md:mr-4">
+
+
+
+                <img [src]="channel.streamImage != null ? getImageUrl(channel.streamImage) : '../../../assets/images/no-profile-image.jpg'"
+                    alt="" class="w-full" style="max-height: 169px; z-index: 2;" (click)="getRoute(channel)">
+                <div class="my-3 flex flex-wrap align-item-unset">
+                    <img [src]="channel.userProfileImage != null ? getImageUrl(channel.userProfileImage) : '../../../assets/images/no-profile-image.jpg'"
+                        alt="" class="rounded-full user-profile-icon"
+                        style="width: 50px;height:50px; border:1px solid #eee;">
+                    <div class="pl-3 w-auto">
+                        <h4 class="text-black text-sm"> {{ channel.streamTitle !== "" ? channel.streamTitle : 'title'  }}
+                        </h4>
+                        <h5 class="text-xs text-gray-500"> @{{  channel.username  }}</h5>
+                        <p class="text-xs text-gray-500"> {{ channel.gameTitle !== "" ? channel.gameTitle : 'game'  }}</p>
+                        <div class="flex flex-wrap">
+                            <span *ngFor="let tag of channel.streamTags"
+                                class="bg-gray-300 text-gray-800 text-xs rounded px-4 py-1 mr-2 mb-2"
+                                (click)="addTag(tag)">{{tag}}</span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="liveChannel?.length == 0">
+        <p>No live channel found for filter<span style="color: red"></span></p>
+      </div>
+</div> -->
+<!-- collection end -->
+
+
+
+
+<div class="container mx-auto md:flex items-center">
+    
+    <div class="md:block flex item-center mb-3 md:ml-0 ml-4 md:mr-4 mr-0" style="margin-left: 2;">
+        <div class="font-medium tracking-wider mr-3 text-xs flex items-center" style="display: inline-block;" > Filter By</div>
+        <form action="" style="display: inline-block;">
+           
+            <select name="" (change)="addTag($event.target.value)"
+            class="border-gray-300 focus:border-pure-red hover:border-pure-red focus:outline-none text-gray-700 rounded border py-1 px-2 text-xs">
+            <option value="">Select an option</option>
+            <option *ngFor="let tag of alltag" [value]="tag.tag">{{ tag.tag }}</option>
+        </select>
+        </form>
+       
+  </div>
+  <div class="serch md:block flex item-center mb-3 md:ml-0 ml-4 md:mr-4 mr-0 pull-left" >
+    <div class="md:inline-flex w-auto hidden flex-grow" >
+        <input name="searchText" [(ngModel)]="searchText" type="text" (keyup)="getLiveChannelList($event)"
+        class="bg-gray-100 p-2 text-xs rounded-sm focus:outline-none flex-grow" style="height: 30px;" placeholder="Search" />
+    <button  class="bg-gray-300 text-gray-500 px-4 rounded-sm"><i
+            class="fa fa-search"></i></button>
+    </div>
+  </div>
+  </div>
+  
+  <div class="container mx-auto pb-12">
+   <span *ngFor="let tag of tagsArray"  class="bg-gray-300 text-gray-800 text-xs rounded px-4 py-1 mr-2 mb-2"> {{tag}}
+     <span (click)="removeTag(tag)">&times;</span>
+                 </span>
+    <div class="sm2:flex sm2:flex-wrap md:flex md:flex-wrap mx-0">
+  
+      <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 my-4" *ngFor="let channel of liveChannel">
+        <div class="p-1 md:mr-4 ">
+        
+          <!-- <video>
+                      <source [src]="video.name_on_file !=null ? video.name_on_file : 'assets/images/no-game-cover.jpg'">
+                  </video> -->
+                  
+            <div class="mx-auto mb-2 " style="overflow: hidden; width: 100%; height: 169px; border: 1px solid #eee; z-index: 2; position: relative;">
+                <span style=" position: absolute;margin-left: 235px; margin-top: 5px; color: red; ">
+                    <span class="fa fa-circle text-theme-primary" aria-hidden="true"></span> LIVE</span>
+                <img style="max-height: 169px; z-index: 2; margin:0px auto; height: 100%;"
+                 [src]="channel.streamImage !=null ? getImageUrl(channel.streamImage) : '../../../assets/images/no-profile-image.jpg'"
+                 alt="" class="w-full" (click)="getRoute(channel)">
+          
+        </div>
+        <div class="my-3 flex flex-wrap align-item-unset">
+            <img [src]="channel.userProfileImage != null ? getImageUrl(channel.userProfileImage) : '../../../assets/images/no-profile-image.jpg'"
+                alt="" class="rounded-full user-profile-icon"
+                style="width: 50px;height:50px; border:1px solid #eee;">
+            <div class="pl-3 w-auto" style="width: 80%;">
+                <h4 class="text-black text-sm"> {{ channel.streamTitle !== "" ? channel.streamTitle : 'title'  }}
+                </h4>
+                <h5 class="text-xs text-gray-500"> @{{  channel.username  }}</h5>
+                <p class="text-xs text-gray-500"> {{ channel.gameTitle !== "" ? channel.gameTitle : 'game'  }}</p>
+                <div class="flex flex-wrap">
+                    <span *ngFor="let tag of channel.streamTags"
+                        class="bg-gray-300 text-gray-800 text-xs rounded px-4 py-1 mr-2 mb-2"
+                        (click)="addTag(tag)">{{tag}}</span>
+
+                </div>
+            </div>
+        </div>
+  
+        </div>
+      </div>
+    </div>
+    <div *ngIf="liveChannel?.length == 0 && live">
+        <p>No live channel found for filter<span style="color: red"></span></p>
+      </div>
+  
+  </div>
+  

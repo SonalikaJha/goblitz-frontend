@@ -1,0 +1,102 @@
+<nav class="shadow fixed bg-white" [ngClass]="{fullscreen: isFullscreen}">
+    <div class="container px-0 flex py-4 mx-auto items-center justify-between relative">
+        <ul class="inline-flex items-center">
+            <li>
+                <a [routerLink]="''" class="font-bold text-2xl md:text-4xl">
+                    <img src="../../../assets/images/go-blitz-logo.png" style="width: 100px;">
+                </a>
+            </li>
+            <li><a (click)="onCategory()" class="px-4 text-red-600 font-bold" style="cursor: pointer;">Browse</a></li>
+        </ul>
+        <form action="" class="md:inline-flex w-auto hidden flex-grow">
+            <input name="searchText" [(ngModel)]="searchText" type="text" class="bg-gray-100 p-2 rounded-sm focus:outline-none flex-grow" placeholder="Search">
+            <button (click)="searchList()" class="bg-gray-300 text-gray-500 px-4 rounded-sm"><i
+            class="fa fa-search"></i></button>
+        </form>
+        <ul class="inline-flex items-center">
+            <li class="md:block hidden mr-5">
+                <a [routerLink]="['/how-to-stream']" routerLinkActive="router-link-active" class="px-4 text-sm">
+                    <i class="fa fa-link text-red-600"></i> How to stream on GoBlitz?
+                </a>
+            </li>
+            <ng-container *ngIf="!isAuthenticated">
+                <li class="auth-links">
+                    <a href="JavaScript:void(0)" class="md:px-4 px-1 text-sm hover:text-red-600" (click)="showAuthForm(0)">Log In</a>
+                    <a href="JavaScript:void(0)" class="md:px-2 px-1 text-sm text-white bg-red-600 py-2 rounded-sm" (click)="showAuthForm(1)">Sign Up</a>
+                </li>
+            </ng-container>
+            <ng-container *ngIf="isAuthenticated">
+                <!--                <li class="flex items-center mr-5"><a href="" class="flex items-center relative">-->
+                <!--                        <i class="far fa-bell text-xl"></i>-->
+                <!--                        <span class="notification">1</span>-->
+                <!--                    </a></li>-->
+                <!--                <li class="flex items-center mr-5"><a href="" class="flex items-center"><i-->
+                <!--                            class="far fa-comments text-xl"></i></a></li>-->
+                <!-- ../../../assets/images/no-profile-image.jpg -->
+                <li>
+                    <a href="JavaScript:void(0)" class="" (click)="toggleUserMenu()">
+                        <img src="{{userProfileData?.profileImage}}" alt="" class="rounded-full mr-2 w-10 h-10" style="border: 1px solid #eee; height: 40px;">
+                    </a>
+                </li>
+            </ng-container>
+        </ul>
+        <div *ngIf="!isMenuHidden && isAuthenticated" class="absolute" style="top: 100%; right: 0px; z-index: 5;" (mouseleave)="isMenuHidden = !isMenuHidden">
+            <div class="container mx-auto relative">
+                <div class="absolute rounded bg-white shadow-lg px-4 py-6" style="right: 0.3rem; width: 15rem;">
+                    <div class='font-bold'>{{ user.name }}</div>
+                    <!--                    <div class="text-xs text-gray-500" *ngIf="isOnline">-->
+                    <!--                        <i class="fa fa-circle text-green-400 text-xs"></i> Online-->
+                    <!--                    </div>-->
+                    <!--                    <div class="text-xs text-gray-500" *ngIf="!isOnline">-->
+                    <!--                        <i class="fa fa-circle text-pure-red text-xs"></i> Offline-->
+                    <!--                    </div>-->
+                    <!--                    <div class="pt-2 flex">-->
+                    <!--                        <div class="w-1/2 text-xs">Online</div>-->
+                    <!--                        <div class="w-1/2 text-right pr-3">-->
+                    <!--                            <input type="checkbox" class="custom-checkbox" [checked]="isOnline"-->
+                    <!--                                (change)="toggleStatus()">-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <div class="py-2">
+                        <hr>
+                    </div>
+                    <ul>
+                        <li class="text-sm py-2">
+                            <a routerLink="/dashboard/profile" class="">
+                                <i class="fa fa-gear fa-fw text-yellow-500"></i> Profile
+                            </a>
+                        </li>
+                        <li class="text-sm py-2">
+                            <!--"'/' + user.username + '/channel'"-->
+                            <a [routerLink]="'/' + user.username + '/channel'" class="">
+                                <i class="fa fa-gear fa-fw text-yellow-500"></i> My channel
+                            </a>
+                        </li>
+                        <li class="text-sm py-2">
+                            <a routerLink="/dashboard/stream-manager" class="">
+                                <i class="fa fa-gear fa-fw text-yellow-500"></i> Settings
+                            </a>
+                        </li>
+                        <!--                        <li class="text-sm py-2">-->
+                        <!--                            <a href="" class="">-->
+                        <!--                                <i class="fa fa-globe fa-fw text-yellow-500"></i> Language-->
+                        <!--                            </a>-->
+                        <!--                        </li>-->
+                    </ul>
+                    <div class="py-2">
+                        <hr>
+                    </div>
+                    <ul>
+                        <li class="text-sm py-2">
+                            <a href="JavaScript:void(0)" class="" (click)="logout()">
+                                <i class="fa fa-sign-out-alt fa-fw text-yellow-500"></i> Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="navbar-safe"></div>
+<app-login-card *ngIf="isAuthFormVisible" [formType]="authFormType" (closeCard)="hideAuthForm()"></app-login-card>

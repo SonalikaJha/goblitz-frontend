@@ -1,0 +1,211 @@
+<div class="backdrop" (click)="close()" ></div>
+<div class="auth-modal shadow-lg flex" *ngIf="formType === 0">
+    <span class="close-btn red-bg" (click)="close()">&times;</span>
+    <div *ngIf="loginStatus" class="bg-theme-primary rounded-on-left-4">
+        <div class="text-center bg-white rounded-bottom-right box py-10 px-4 md:px-10 rounded-on-left-4">
+            <img src="../../../assets/images/go-blitz-logo.png" style="width: 180px; margin-bottom: 3rem;">
+            <div class="font-bold text-xl text-black mb-4">Log in</div>
+            <form action="" class="loginForm w-full py-3 px-5" [formGroup]='loginForm' (ngSubmit)="login()">
+                <div class="mb-3">
+                    <label class="block text-left">Username or Email:</label>
+                    <input type="text" oninput="this.value = this.value.toLowerCase()"
+                        class="border border-transparent hover:bg-white focus:bg-white bg-gray-200 hover:border-theme-primary focus:border-theme-primary px-4 py-2 text-sm w-full focus:outline-none border-transparent"
+                        placeholder="USERNAME" autocomplete="false" formControlName='username'
+                        [ngClass]="{'border-pure-red': loginError(loginControls.username)}">
+                    <div class="text-pure-red text-xs text-left" *ngIf="loginError(loginControls.username, 'required')" >
+                        Username is required
+                    </div>
+                    <div class="text-pure-red text-xs text-left"
+                        *ngIf="loginError(loginControls.username, 'backend')">
+                        <span *ngFor="let error of loginControls.username.errors.backend">{{ error }}</span>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="block text-left">Password:</label>
+                    <input type="password"
+                        class="border border-transparent hover:bg-white focus:bg-white bg-gray-200 hover:border-theme-primary focus:border-theme-primary px-4 py-2 text-sm w-full focus:outline-none border-transparent"
+                        placeholder="PASSWORD" autocomplete="false" formControlName='password'
+                        [ngClass]="{'border-pure-red': loginError(loginControls.password)}">
+                    <div class="text-pure-red text-xs text-left" *ngIf="loginError(loginControls.password, 'required')">
+                        Password is required
+                    </div>
+                    <div class="text-pure-red text-xs text-left"
+                        *ngIf="loginError(loginControls.password, 'backend')">
+                        <span *ngFor="let error of loginControls.password.errors.backend">{{ error }}</span>
+                    </div>
+                </div>
+                <div class="text-left"><a href="#" class="text-pure-red text-xs mb-3" (click)="forgetpassword()">Forgot your password?</a></div>
+                <button class="rounded bg-theme-primary text-white uppercase py-2 px-6 mt-8 mb-4 text-sm"
+                    type="submit">Log In</button>
+                <a href="JavaScript:void(0)" class="py-2 px-6 text-sm text-theme-primary md:hidden block"
+                    (click)="switchForm()">or sign up</a>
+            </form>
+        </div>
+    </div>
+<!--  forget password-->
+<div *ngIf="forgetStatus" class="bg-theme-primary rounded-on-left-4">
+    <div class="text-center bg-white rounded-bottom-right box py-10 px-4 md:px-10 rounded-on-left-4">
+        <img src="../../../assets/images/go-blitz-logo.png" style="width: 180px; margin-bottom: 3rem;">
+        <div class="font-bold text-xl text-black mb-4">Forget Password Link</div>
+        <form action="" class="loginForm w-full py-3 px-5" [formGroup]='emailForm' (ngSubmit)="sendForgetRequest()">
+            <div class="mb-3">
+                <label class="block text-left">Email:</label>
+                <input type="text" oninput="this.value = this.value.toLowerCase()"
+                    class="border border-transparent hover:bg-white focus:bg-white bg-gray-200 hover:border-theme-primary focus:border-theme-primary px-4 py-2 text-sm w-full focus:outline-none border-transparent"
+                    placeholder="Email" autocomplete="false" formControlName='email'
+                    [ngClass]="{'border-pure-red': emailError(emailControls.email)}">
+                <div class="text-pure-red text-xs text-left" *ngIf="emailError(emailControls.email, 'required')" >
+                    Email is required
+                </div>
+                <!-- <div class="text-pure-red text-xs text-left"
+                    *ngIf="emailError(emailControls.email, 'backend')">
+                    <span *ngFor="let error of loginControls.email.errors.backend">{{ error }}</span>
+                </div> -->
+                <div class="text-pure-red text-xs text-left"
+                    *ngIf="userNotFound">
+                    <span >User not found</span> 
+                </div>
+            </div>
+            <div class="text-pure-red text-xs text-left"
+                    *ngIf="isMailActive">
+                    <span >Please check your mail</span>
+                </div>
+
+                
+           
+            <button class="rounded bg-theme-primary text-white uppercase py-2 px-6 mt-8 mb-4 text-sm"
+                type="submit">Send Request</button>
+            <a href="JavaScript:void(0)" class="py-2 px-6 text-sm text-theme-primary md:hidden block"
+                (click)="switchForm()">or sign up</a>
+        </form>
+    </div>
+</div>
+<!--  end forget password-->
+    <div class='text-white bg-white rounded-on-right-4 md:block hidden'>
+        <div class="text-center box bg-theme-primary p-10 rounded-top-left rounded-on-right-4">
+            <div class="text-3xl font-bold tracking-wide mb-4">Welcome Back!</div>
+            <div class="sub-heading">To keep connected with us please</div>
+            <div class="sub-heading">login with your personal info</div>
+            <button class="rounded border-white uppercase py-2 px-6 mt-10 text-sm border-2" (click)="switchForm()">Sign
+                Up</button>
+        </div>
+    </div>
+</div>
+<div class="auth-modal rounded flex" *ngIf="formType === 1">
+    <span class="close-btn" (click)="close()">&times;</span>
+    <div class='text-white bg-white rounded-on-left-4 md:block hidden'>
+        <div class="text-center box bg-theme-primary p-10 rounded-bottom-right rounded-on-left-4">
+            <img src="../../../assets/images/go-blitz-logo.png"
+                style="width: 180px; margin-bottom: 3rem; filter: brightness(1) contrast(1) grayscale(1);">
+            <div class="text-3xl font-bold tracking-wide mb-4">Hello!</div>
+            <div class="sub-heading">Enter your personal details</div>
+            <div class="sub-heading">and start a journey with us</div>
+            <button class="rounded border-white uppercase py-2 px-6 mt-10 text-sm border-2" (click)="switchForm()">Log
+                in</button>
+        </div>
+    </div>
+    <div class="bg-theme-primary rounded-on-right-4">
+        <div class="text-center bg-white rounded-top-left box py-10 px-4 md:px-10 rounded-on-right-4">
+            <div class="font-bold text-xl text-black mb-4">Create Account</div>
+            <form action="" class="loginForm w-full py-3 px-5" [formGroup]='signupForm' (ngSubmit)="signup()">
+                <div class="mb-3">
+                    <label class="block text-left">Full name:</label>
+                    <input type="text"
+                        class="border border-transparent hover:bg-white focus:bg-white bg-gray-200 hover:border-theme-primary focus:border-theme-primary px-4 py-2 text-sm w-full focus:outline-none border-transparent"
+                        placeholder="NAME" autocomplete="false" formControlName='name'
+                        [ngClass]="{'border-pure-red': signupError(signupControls.name)}">
+                    <div class="text-pure-red text-xs text-left" *ngIf="signupError(signupControls.name, 'required')">
+                        Name is required
+                    </div>
+                  <div class="text-pure-red text-xs text-left" *ngIf="signupError(signupControls.name, 'pattern')">
+                   Only Characters and Space are allowed
+                  </div>
+                    <div class="text-pure-red text-xs text-left"
+                        *ngIf="signupError(signupControls.name, 'backend')">
+                        <span *ngFor="let error of signupControls.name.errors.backend">{{ error }}</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="block text-left">Username:</label>
+                    <input type="text" oninput="this.value = this.value.toLowerCase()"
+                        class="border border-transparent hover:bg-white focus:bg-white bg-gray-200 hover:border-theme-primary focus:border-theme-primary px-4 py-2 text-sm w-full focus:outline-none border-transparent"
+                        placeholder="USERNAME" autocomplete="false" formControlName='username'
+                        [ngClass]="{'border-pure-red': signupError(signupControls.username)}">
+                    <div class="text-pure-red text-xs text-left"
+                        *ngIf="signupError(signupControls.username, 'required')">
+                        Username is required
+                    </div>
+                    <div class="text-pure-red text-xs text-left"
+                        *ngIf="signupError(signupControls.username, 'backend')">
+                        <span *ngFor="let error of signupControls.username.errors.backend">{{ error }}</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="block text-left">Password:</label>
+                    <input type="password"
+                        class="border border-transparent hover:bg-white focus:bg-white bg-gray-200 hover:border-theme-primary focus:border-theme-primary px-4 py-2 text-sm w-full focus:outline-none border-transparent"
+                        placeholder="PASSWORD" autocomplete="false" formControlName='password'
+                        [ngClass]="{'border-pure-red': signupError(signupControls.password)}">
+                    <div class="text-pure-red text-xs text-left"
+                        *ngIf="signupError(signupControls.password, 'required')">
+                        Password is required
+                    </div>
+                    <div class="text-pure-red text-xs text-left"
+                        *ngIf="signupError(signupControls.password, 'backend')">
+                        <span *ngFor="let error of signupControls.password.errors.backend">{{ error }}</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="block text-left">Email:</label>
+                    <input type="email" oninput="this.value = this.value.toLowerCase()"
+                        class="border border-transparent hover:bg-white focus:bg-white bg-gray-200 hover:border-theme-primary focus:border-theme-primary px-4 py-2 text-sm w-full focus:outline-none border-transparent"
+                        placeholder="EMAIL" autocomplete="false" formControlName='email'
+                        [ngClass]="{'border-pure-red': signupError(signupControls.email)}">
+                    <div class="text-pure-red text-xs text-left" *ngIf="signupError(signupControls.email, 'required')">
+                        Email is required
+                    </div>
+                    <div class="text-pure-red text-xs text-left"
+                        *ngIf="signupError(signupControls.email, 'backend')">
+                        <span *ngFor="let error of signupControls.email.errors.backend">{{ error }}</span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="block text-left">Date of birth:</label>
+                    <div class="flex" [ngClass]="{'border-pure-red': dateHasError(), 'border': dateHasError()}">
+                        <select formControlName="month"
+                            class="border border-transparent hover:bg-white focus:bg-white bg-gray-200 hover:border-theme-primary focus:border-theme-primary px-4 py-2 text-sm focus:outline-none border-transparent w-2/4">
+                            <option [value]="i + 1" *ngFor="let month of monthList; let i = index">{{ month }}</option>
+                        </select>
+                        <input type="day" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');"
+                            class="border border-transparent hover:bg-white focus:bg-white bg-gray-200 hover:border-theme-primary focus:border-theme-primary px-4 py-2 text-sm focus:outline-none border-transparent w-1/4"
+                            minlength="2" maxlength="2" placeholder="DAY" autocomplete="false" formControlName='day'>
+                        <input type="year" oninput="this.value = this.value.replace(/[^0-9]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');"
+                            class="border border-transparent hover:bg-white focus:bg-white bg-gray-200 hover:border-theme-primary focus:border-theme-primary px-4 py-2 text-sm focus:outline-none border-transparent w-1/4"
+                            minlength="4" maxlength="4" placeholder="YEAR" autocomplete="false" formControlName='year'>
+                    </div>
+                    <div class="text-pure-red text-xs text-left" *ngIf="dateHasError()">
+                        A valid date is required
+                    </div>
+                </div>
+
+              <div class="mb-3">
+                <label class="block text-left">Country:</label>
+                <select formControlName="country"
+                        class="border border-transparent hover:bg-white focus:bg-white bg-gray-200 hover:border-theme-primary focus:border-theme-primary px-4 py-2 text-sm focus:outline-none border-transparent w-full">
+                  <option [value]="country.name" *ngFor="let country of countries; let i = index">{{ country.name }}</option>
+                </select>
+                <div class="text-pure-red text-xs text-left" *ngIf="signupError(signupControls.country, 'required')">
+                  Country is required
+                </div>
+              </div>
+
+                <button class="rounded bg-theme-primary text-white uppercase py-2 px-6 mt-8 mb-4 text-sm"
+                    type="submit">Sign up</button>
+                <a href="JavaScript:void(0)" class="py-2 px-6 text-sm text-theme-primary md:hidden block"
+                    (click)="switchForm()">or log in</a>
+            </form>
+        </div>
+    </div>
+</div>

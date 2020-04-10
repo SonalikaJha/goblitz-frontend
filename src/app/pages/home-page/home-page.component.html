@@ -1,0 +1,71 @@
+<!-- Hero Carousel -->
+<app-hero-carousel></app-hero-carousel>
+<!-- Hero Carousel end -->
+<app-live-channels [cardsToShow]="[0, 1, 2,3,4]"></app-live-channels>
+<!-- Recommended channels -->
+<app-recommended-channels [cardsToShow]="[0,1,2,3,4,5,6,7]"></app-recommended-channels>
+<!-- Recommended channels end -->
+<!-- How to stream banner -->
+<div class="bg-gray-100">
+    <a [routerLink]="['/how-to-stream']" routerLinkActive="router-link-active" class=""><img src="../../../assets/images/how-to-stream.png" class="w-full" alt=""></a>
+</div>
+<!-- How to stream banner end -->
+<!-- Featured Gamers -->
+<!--<div>-->
+<!--    <div class="py-20 container mx-auto">-->
+<!--        <h2 class="text-black text-xl pl-2 border-l-4 border-red-600 mb-8">-->
+<!--            Featured Gamers <a href="" class="pl-4 text-sm text-red-500">View all</a>-->
+<!--        </h2>-->
+
+<!--        &lt;!&ndash; carousel &ndash;&gt;-->
+<!--        <owl-carousel-->
+<!--            [options]="{responsive: {'0':{ items:1 }, '600':{ items:3 }, '1000':{ items:5 }}, dots: false, nav: true}"-->
+<!--            [items]="[1,2,3,4,5,6,7,8,9]" [carouselClasses]="['owl-theme', 'row', 'sliding']">-->
+<!--            <div class="item player-card text-center" *ngFor="let image of [1,2,3,4,5,6,7,8,9];let i = index">-->
+<!--                <div class="px-5 mb-2">-->
+<!--                    <img src="https://store.playstation.com/store/api/chihiro/00_09_000/container/US/en/999/UP1018-CUSA00133_00-AV00000000000015/1553561653000/image?w=240&h=240&bg_color=000000&opacity=100&_version=00_09_000"-->
+<!--                        alt="" class="rounded-full w-full">-->
+<!--                </div>-->
+<!--                <h3 class="text-lg font-bold">DeadpooL <i-->
+<!--                        class="fa fa-check rounded-full bg-red-500 text-white text-xs p-1"></i></h3>-->
+<!--                <h5 class="text-xs text-red-500">8m views</h5>-->
+<!--            </div>-->
+<!--        </owl-carousel>-->
+<!--        &lt;!&ndash; carousel index &ndash;&gt;-->
+<!--    </div>-->
+<!--</div>-->
+<!-- Featured Gamers end -->
+
+<!-- Popular games -->
+<!--<div>-->
+<!--    <div class="py-20 container mx-auto">-->
+<!--        <h2 class="text-black text-xl pl-2 border-l-4 border-red-600 mb-8">-->
+<!--            Popular Games <a href="" class="pl-4 text-sm text-red-500">View all</a>-->
+<!--        </h2>-->
+
+<!--        &lt;!&ndash; carousel &ndash;&gt;-->
+<!--        <owl-carousel [options]="{responsive: {'0':{ items:1 }, '600':{ items:3 }, '1000':{ items:5 }}, dots: false, nav: true}"-->
+<!--            [items]="[1,2,3,4,5,6,7,8,9]"-->
+<!--            [carouselClasses]="['owl-theme', 'row', 'sliding']">-->
+<!--            <app-game-card [game]="{name: 'PUBG', views: '93.8k viewers', tags: ['Action', 'Shooter']}">-->
+<!--            </app-game-card>-->
+<!--            <app-game-card [game]="{name: 'PUBG', views: '93.8k viewers', tags: ['Action', 'Shooter']}">-->
+<!--            </app-game-card>-->
+<!--            <app-game-card [game]="{name: 'PUBG', views: '93.8k viewers', tags: ['Action', 'Shooter']}">-->
+<!--            </app-game-card>-->
+<!--            <app-game-card [game]="{name: 'PUBG', views: '93.8k viewers', tags: ['Action', 'Shooter']}">-->
+<!--            </app-game-card>-->
+<!--            <app-game-card [game]="{name: 'PUBG', views: '93.8k viewers', tags: ['Action', 'Shooter']}">-->
+<!--            </app-game-card>-->
+<!--            <app-game-card [game]="{name: 'PUBG', views: '93.8k viewers', tags: ['Action', 'Shooter']}">-->
+<!--            </app-game-card>-->
+<!--            <app-game-card [game]="{name: 'PUBG', views: '93.8k viewers', tags: ['Action', 'Shooter']}">-->
+<!--            </app-game-card>-->
+<!--        </owl-carousel>-->
+<!--        &lt;!&ndash; carousel index &ndash;&gt;-->
+<!--    </div>-->
+<!--</div>-->
+<!-- Popular games end -->
+<!-- Popular channels -->
+<app-popular-channels></app-popular-channels>
+<!-- Popular channels end -->

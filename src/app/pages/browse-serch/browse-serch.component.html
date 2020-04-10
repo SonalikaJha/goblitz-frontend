@@ -1,0 +1,355 @@
+<div class="container mx-auto py-12">
+  <h2 class="text-black text-xl pl-2 border-l-4 border-red-600 mb-6">Live Channels</h2>
+  <div class="sm2:flex sm2:flex-wrap md:flex md:flex-wrap mx-0">
+
+    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 my-4" *ngFor="let chnl of prevliveChannels" style="z-index: 2;">
+      <div class="p-1 md:mr-4" >
+
+        <a class="" [routerLink]="'/' + chnl.username + '/channel'">
+          <!-- <img [src]="channel.coverImage !=null ? getImageUrl(channel.coverImage): 'assets/images/no-game-cover.jpg'" alt="not found"> -->
+          <span style=" position: absolute;margin-left: 238px; margin-top: 5px; color: red; "><span class="fa fa-circle text-theme-primary" aria-hidden="true"></span> LIVE</span>
+          <img style="max-height: 169px;"
+            [src]="chnl.streamImage !=null ? getImageUrl(chnl.streamImage) : getImageUrl(baseUrl+'storage/default-images/no-game-cover.jpg')" alt=""
+            class="w-full">
+        </a>
+        <div class="my-3 flex flex-wrap align-item-unset">
+          <a class="" [routerLink]="'/' + chnl.username + '/channel'">
+            <img style="width: 50px;height:50px; border:1px solid #eee;"
+              [src]="chnl.userProfileImage !=null ? getImageUrl(chnl.userProfileImage) : getImageUrl(baseUrl+'storage/default-images/no-profile-image.jpg')"
+              alt="" class="rounded-full user-profile-icon"></a>
+          <div class="pl-3 w-auto" style="width: 80%;">
+            <h4 *ngIf="chnl.streamTitle !='' && chnl.streamTitle !=undefined && chnl.streamTitle !=null" class="text-black text-sm" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ chnl.streamTitle !=null ? chnl.streamTitle : 'Stream Title'}}</h4>
+            <a class="" [routerLink]="'/' + chnl.username + '/channel'">
+              <h5 *ngIf="chnl.username !='' && chnl.username !=undefined && chnl.username !=null" class="text-xs text-gray-500">@{{ chnl.username !=null ? chnl.username : 'user name'}}</h5>
+            </a>
+            <h5 *ngIf="chnl.gameTitle !='' && chnl.gameTitle !=undefined && chnl.gameTitle !=null" class="text-xs text-gray-500">{{ chnl.gameTitle !=null ? chnl.gameTitle : 'Game Title'}}</h5>
+            <div class="flex flex-wrap">
+              <span *ngFor="let tag of chnl.streamTags"
+                class="bg-gray-300 text-gray-800 text-xs rounded px-4 py-1 mr-2 mb-2" (click)="tagFilterlive(tag)" style="cursor: pointer;">{{ tag }}</span>
+            </div>
+          </div>
+          
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div  style="display: none" class="sm2:flex sm2:flex-wrap md:flex md:flex-wrap mx-0">
+
+    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 my-4" *ngFor="let chnl of afterliveChannels" style="z-index: 2;">
+      <div class="p-1 md:mr-4" >
+
+        <a class="" [routerLink]="'/' + chnl.username + '/channel'">
+          <!-- <img [src]="channel.coverImage !=null ? getImageUrl(channel.coverImage): 'assets/images/no-game-cover.jpg'" alt="not found"> -->
+         <span style=" position: absolute;margin-left: 238px; margin-top: 5px; color: red; "><span class="fa fa-circle text-theme-primary" aria-hidden="true"></span> LIVE</span>
+          <img style="max-height: 169px;"
+               [src]="chnl.streamImage !=null ? getImageUrl(chnl.streamImage) : getImageUrl(baseUrl+'storage/default-images/no-game-cover.jpg')" alt=""
+               class="w-full">
+        </a>
+        <div class="my-3 flex flex-wrap align-item-unset">
+          <a class="" [routerLink]="'/' + chnl.username + '/channel'">
+            <img style="width: 50px;height:50px; border:1px solid #eee;"
+                 [src]="chnl.userProfileImage !=null ? getImageUrl(chnl.userProfileImage) : getImageUrl(baseUrl+'storage/default-images/no-profile-image.jpg')"
+                 alt="" class="rounded-full user-profile-icon"></a>
+          <div class="pl-3 w-auto" style="width: 80%;">
+            <h4  *ngIf="chnl.streamTitle !='' && chnl.streamTitle !=undefined && chnl.streamTitle !=null" class="text-black text-sm" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ chnl.streamTitle !=null ? chnl.sreamTitle : 'Stream Title'}}</h4>
+            <a class="" [routerLink]="'/' + chnl.username + '/channel'">
+              <h5 *ngIf="chnl.username !='' && chnl.username !=undefined && chnl.username !=null" class="text-xs text-gray-500">@{{ chnl.username !=null  ? chnl.username : 'User name'}}</h5>
+            </a>
+            <h5 *ngIf="chnl.gameTitle !='' && chnl.gameTitle !=undefined && chnl.gameTitle !=null" class="text-xs text-gray-500">{{ chnl.gameTitle !=null ? chnl.gameTitle : 'Game Title'}}</h5>
+
+            <div class="flex flex-wrap">
+              <span *ngFor="let tag of chnl.streamTags"
+                    class="bg-gray-300 text-gray-800 text-xs rounded px-4 py-1 mr-2 mb-2" (click)="tagFilterlive(tag)" style="cursor: pointer;">{{ tag }}</span>
+            </div>
+          </div>
+          
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="liveChannels?.length == 0">
+    <p>No live channels found for <span style="color: red">{{searchingText}}</span></p>
+  </div>
+
+  <a  [routerLink]="getRoute()" routerLinkActive="router-link-active"   *ngIf="afterliveChannels?.length != 0 && liveChannelstatus" class="text-red-600 text-xs mt-4 font-bold more-indicator"
+      (click)="toggleRest($event)" >
+    {{ showRest ? getAllLive() : 'See more' }}</a>
+</div>
+
+<div class="container mx-auto py-12">
+  <h2 class="text-black text-xl pl-2 border-l-4 border-red-600 mb-6">All Channels</h2>
+  <div class="flex flex-wrap">
+
+    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 my-4" *ngFor="let chnl of prevallChannels" style="z-index: 2;">
+      <div class="p-1 md:mr-4">
+
+        <a class="" [routerLink]="'/' + chnl.username + '/channel'">
+          <!-- <img [src]="channel.coverImage !=null ? getImageUrl(channel.coverImage): 'assets/images/no-game-cover.jpg'" alt="not found"> -->
+          <img style="max-height: 169px;"
+               [src]="chnl.streamImage !=null ? getImageUrl(chnl.streamImage) : getImageUrl(baseUrl+'storage/default-images/no-game-cover.jpg')" alt=""
+               class="w-full">
+        </a>
+        <div class="my-3 flex flex-wrap align-item-unset">
+          <a class="" [routerLink]="'/' + chnl.username + '/channel'">
+            <img style="width: 50px;height:50px; border:1px solid #eee;"
+                 [src]="chnl.userProfileImage !=null ? getImageUrl(chnl.userProfileImage) : getImageUrl(baseUrl+'storage/default-images/no-profile-image.jpg')"
+                 alt="" class="rounded-full user-profile-icon"></a>
+          <div class="pl-3 w-auto" style="width: 80%;">
+           <h4 *ngIf="chnl.username !='' && chnl.username !=undefined && chnl.username !=null" class="text-black text-sm">@{{ chnl.username !=null ? chnl.username : 'User name'}}</h4>
+            <a class="" [routerLink]="'/' + chnl.username + '/channel'">
+              <h5 *ngIf="chnl.bio !='' && chnl.bio !=undefined && chnl.bio !=null" class="text-xs text-gray-500" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ chnl.bio }}</h5>
+            </a>
+            <h5 class="text-xs text-gray-500">
+              <span *ngIf="chnl.followersCount>0">{{ chnl.followersCount !=0 ? chnl.followersCount : 20}} Followers </span><span *ngIf="chnl.videoCount>0 && chnl.followersCount>0">|</span>
+              <span *ngIf="chnl.videoCount>0"> {{ chnl.videoCount !=0 ? chnl.videoCount : 20}} Videos </span><span *ngIf="chnl.viewersCount>0 && chnl.videoCount>0">|</span>
+              
+              <span *ngIf="chnl.viewersCount>0" class="text-xs text-gray-500"> {{ chnl.viewersCount !=0 ? chnl.viewersCount : 20}} Views</span>
+            </h5>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div style="display:none;" class="flex flex-wrap">
+
+    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 my-4" *ngFor="let chnl of afterallChannels" style="z-index: 2;">
+      <div class="p-1 md:mr-4">
+
+        <a class="" [routerLink]="'/' + chnl.username + '/channel'">
+          <!-- <img [src]="channel.coverImage !=null ? getImageUrl(channel.coverImage): 'assets/images/no-game-cover.jpg'" alt="not found"> -->
+          <img style="max-height: 169px;"
+               [src]="chnl.streamImage !=null ? getImageUrl(chnl.streamImage) : getImageUrl(baseUrl+'storage/default-images/no-game-cover.jpg')" alt=""
+               class="w-full">
+        </a>
+        <div class="my-3 flex flex-wrap align-item-unset">
+          <a class="" [routerLink]="'/' + chnl.username + '/channel'">
+            <img style="width: 50px;height:50px; border:1px solid #eee;"
+                 [src]="chnl.userProfileImage !=null ? getImageUrl(chnl.userProfileImage) : getImageUrl(baseUrl+'storage/default-images/no-profile-image.jpg')"
+                 alt="" class="rounded-full user-profile-icon"></a>
+          <div class="pl-3 w-auto" style="width: 80%;">
+           <h4 *ngIf="chnl.username !='' && chnl.username !=undefined && chnl.username !=null" class="text-black text-sm">@{{ chnl.username !=null ? chnl.username : 'User name'}}</h4>
+            <a class="" [routerLink]="'/' + chnl.username + '/channel'">
+              <h5 *ngIf="chnl.bio !='' && chnl.bio !=undefined && chnl.bio !=null" class="text-xs text-gray-500" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ chnl.bio !='' && chnl.bio != undefined && chnl.bio !=null ? chnl.bio : 'User Bio'}}</h5>
+            </a>
+            <h5 class="text-xs text-gray-500">
+              <span *ngIf="chnl.followersCount>0">{{ chnl.followersCount !=0 ? chnl.followersCount : 20}} Followers </span><span *ngIf="chnl.videoCount>0 && chnl.followersCount>0">|</span>
+              <span *ngIf="chnl.videoCount>0"> {{ chnl.videoCount !=0 ? chnl.videoCount : 20}} Videos </span><span *ngIf="chnl.viewersCount>0 && chnl.videoCount>0">|</span>
+              
+              <span *ngIf="chnl.viewersCount>0" class="text-xs text-gray-500"> {{ chnl.viewersCount !=0 ? chnl.viewersCount : 20}} Views</span>
+            </h5>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="allChannels?.length == 0">
+    <p>No channels found for <span style="color: red">{{searchingText}}</span></p>
+  </div>
+  <a  [routerLink]="getRouteAllChannel()" routerLinkActive="router-link-active"   *ngIf="afterallChannels?.length != 0 && allChannelStatus" class="text-red-600 text-xs mt-4 font-bold more-indicator"
+      (click)="toggleRestAllChannel($event)" >
+    {{ showRestAllChannel ? getAll() : 'See more' }}</a>
+</div>
+
+<!-- <div class="container mx-auto pb-12">
+    <h2>Games</h2>
+    <div class="flex flex-wrap">
+
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 my-4" *ngFor="let game of searchData.data.games">
+            <div class="p-1 md:mr-4">
+
+                <a class="" >
+                    <img src="game.image !=null ? game.image : 'https://via.placeholder.com/320x480.jpg?text=Game+Poster'" alt="">
+                    <div class="my-3 flex flex-wrap items-center">
+                         <img [src]="game.userProfile !=undefined ? channel.userProfile : 'assets/images/no-profile-image.jpg'"
+                            alt="" class="rounded-full user-profile-icon"> -->
+<!--  <div class="pl-3 w-auto">
+                            <h4 class="text-black text-sm">{{ game.title !=null ? game.title : 'Game Title'}}</h4>
+                            <h5 class="text-xs text-gray-500">{{ game.followersCount }} subcribers</h5>
+                            <p class="text-xs text-gray-500">{{ game.viewersCount }} views
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div> -->
+<!-- <h3>Recent videos</h3> -->
+<!-- collection -->
+<!-- <div class="container mx-auto pb-12">
+    <div class="flex flex-wrap">
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 my-4" *ngFor="let video of searchData.data.videos">
+            <div class="p-1 md:mr-4">
+
+                <app-channel-card-two [channel]="{
+                    link: '/channel',
+                    image: video.name_on_file,
+                    userProfile: 'profile',
+                    title: 'title',
+                    userName: video.owner,
+                    game: 'Game'
+                  }"></app-channel-card-two>
+            </div>
+        </div>
+    </div>
+</div> -->
+<!-- collection end -->
+
+
+<!-- collection -->
+<div class="container mx-auto py-12">
+  <h2 class="text-black text-xl pl-2 border-l-4 border-red-600 mb-6">Recent videos</h2>
+  <div class="sm2:flex sm2:flex-wrap md:flex md:flex-wrap mx-0">
+
+    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 my-4" *ngFor="let channel of prevPlayBacksVideos" style="z-index: 2;">
+      <div class="p-1 md:mr-4">
+        <!-- <video>
+                    <source [src]="video.name_on_file !=null ? video.name_on_file : 'assets/images/no-game-cover.jpg'">
+                </video> -->
+
+        <a class="" [routerLink]="'/' + channel.username + '/playbacks/'+ channel.playbackId">
+          <img style="max-height: 169px;"
+            [src]="channel.streamImage !=null ? getImageUrl(channel.streamImage) : getImageUrl(baseUrl+'storage/default-images/no-game-cover.jpg')"
+            alt="" class="w-full">
+        </a>
+        <div class="my-3 flex flex-wrap align-item-unset">
+          <a class="" [routerLink]="'/' + channel.username + '/channel'">
+          <img style="width: 50px;height:50px; border:1px solid #eee; vertical-align: top;" [src]="channel.userProfileImage !=null ? getImageUrl(channel.userProfileImage) : getImageUrl(baseUrl+'storage/default-images/no-profile-image.jpg')"
+               alt="" class="rounded-full user-profile-icon"></a>
+          <div class="pl-3 w-auto" style="width: 80%;">
+            <h4 *ngIf="channel.streamTitle !='' && channel.streamTitle !=undefined && channel.streamTitle !=null" class="text-black text-sm" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ channel.streamTitle !=null ? channel.streamTitle : 'Stream Title'}}</h4>
+            <a class="" [routerLink]="'/' + channel.username + '/channel'">
+            <h5 *ngIf="channel.username !='' && channel.username !=undefined && channel.username !=null" class="text-xs text-gray-500">@{{ channel.username !=null ? channel.username : 'user name'}}</h5></a>
+            <h5 *ngIf="channel.gameTitle !='' && channel.gameTitle !=undefined && channel.gameTitle !=null" class="text-xs text-gray-500">{{ channel.gameTitle !=null ? channel.gameTitle : 'Game Title'}}</h5>
+            <h5 class="text-xs text-gray-500" *ngIf="channel.totalPlaybackViews>0">{{ channel.totalPlaybackViews !=null ? channel.totalPlaybackViews : 10 }} views</h5>
+          
+            <div class="flex flex-wrap">
+              <span *ngFor="let tag of channel.streamTags" class="bg-gray-300 text-gray-800 text-xs rounded px-4 py-1 mr-2 mb-2" (click)="tagFilter(tag)" style="cursor: pointer;">{{ tag }}</span>
+            </div>
+          </div>
+
+          
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div style="display: none" class="sm2:flex sm2:flex-wrap md:flex md:flex-wrap mx-0">
+
+    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 my-4" *ngFor="let channel of afterPlayBacksVideos;" style="z-index: 2;">
+      <div class="p-1 md:mr-4">
+        <!-- <video>
+                    <source [src]="video.name_on_file !=null ? video.name_on_file : 'assets/images/no-game-cover.jpg'">
+                </video> -->
+
+        <a class="" [routerLink]="'/' + channel.username + '/playbacks/'+ channel.playbackId">
+          <img style="max-height: 169px;"
+               [src]="channel.streamImage !=null ? getImageUrl(channel.streamImage) : getImageUrl(baseUrl+'storage/default-images/no-game-cover.jpg')"
+               alt="" class="w-full">
+        </a>
+        <div class="my-3 flex flex-wrap align-item-unset">
+          <a class="" [routerLink]="'/' + channel.username + '/channel'">
+          <img style="width: 50px;height:50px; border:1px solid #eee; vertical-align: top;" [src]="channel.userProfileImage !=null ? getImageUrl(channel.userProfileImage) : getImageUrl(baseUrl+'storage/default-images/no-profile-image.jpg')"
+               alt="" class="rounded-full user-profile-icon"></a>
+               <div class="pl-3 w-auto" style="width: 80%;">
+                <h4 *ngIf="channel.streamTitle !='' && channel.streamTitle !=undefined && channel.streamTitle !=null" class="text-black text-sm" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ channel.streamTitle !=null ? channel.streamTitle : 'Stream Title'}}</h4>
+                <a class="" [routerLink]="'/' + channel.username + '/channel'">
+                <h5 *ngIf="channel.username !='' && channel.username !=undefined && channel.username !=null" class="text-xs text-gray-500">@{{ channel.username !=null ? channel.username : 'user name'}}</h5></a>
+                <h5 *ngIf="channel.gameTitle !='' && channel.gameTitle !=undefined && channel.gameTitle !=null" class="text-xs text-gray-500">{{ channel.gameTitle !=null ? channel.gameTitle : 'Game Title'}}</h5>
+                <h5 class="text-xs text-gray-500" *ngIf="channel.totalPlaybackViews>0">{{ channel.totalPlaybackViews !=null ? channel.totalPlaybackViews : 10 }} views</h5>
+              
+                <div class="flex flex-wrap">
+                  <span *ngFor="let tag of channel.streamTags" class="bg-gray-300 text-gray-800 text-xs rounded px-4 py-1 mr-2 mb-2" (click)="tagFilter(tag)" style="cursor: pointer;">{{ tag }}</span>
+                </div>
+              </div>
+
+          
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="playBacksVideos?.length == 0">
+    <p>No recent videos found for <span style="color: red">{{searchingText}}</span></p>
+  </div>
+
+  <a  [routerLink]="getRouteVideos()" routerLinkActive="router-link-active"   *ngIf="afterPlayBacksVideos?.length != 0 && playBackStatus" class="text-red-600 text-xs mt-4 font-bold more-indicator"
+      (click)="toggleRestVideos($event)" >
+    {{ showRestVideos ? getAllPlayBacks() : 'See more' }}</a>
+</div>
+<!-- collection end -->
+<!-- <a class="" [routerLink]="'/' + channel.userName + channel.link">
+    <img [src]="channel.image !=null ? channel.image : 'assets/images/no-game-cover.jpg'" alt="">
+    <div class="my-3 flex flex-wrap items-center">
+        <img [src]="channel.userProfile !=null ? channel.userProfile : 'assets/images/no-profile-image.jpg'" alt=""
+            class="rounded-full user-profile-icon">
+        <div class="pl-3 w-auto">
+            <h4 class="text-black text-sm">{{ channel.title !=null ? channel.title : 'Game Title'}}</h4>
+            <h5 class="text-xs text-gray-500">{{ channel.userName }}</h5>
+            <p class="text-xs text-gray-500">{{ channel.game !== null ? channel.game : "Game Title" }}</p>
+        </div>
+    </div>
+</a> -->
+
+<div class="container mx-auto py-12">
+  <h2 class="text-black text-xl pl-2 border-l-4 border-red-600 mb-6">Games</h2>
+  <div class="sm2:flex sm2:flex-wrap md:flex md:flex-wrap mx-0">
+
+    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 my-4" *ngFor="let game of prevGames" style="z-index: 2;">
+      
+        <div class="item player-card p-1 mx-2 hover:shadow-lg">
+          <a class="" [routerLink]="gotoGame(game.title)">
+          <div class="mx-auto mb-2">
+            <img [src]=getImageUrl(game.image) alt="" class="w-full">
+          </div>
+          <h3 *ngIf="game.title!='' && game.title!=undefined && game.title!=null" class="text-lg font-bold">{{ game.title !=null?game.title:'Game Title' }}</h3> </a>
+          <h5 *ngIf="game.viewersCount!=0 && game.viewersCount!=undefined" class="text-xs text-gray-500 mb-2">{{ game.viewersCount}} views</h5>
+          <div class="flex flex-wrap">
+            <span *ngFor="let tag of game.tags"
+                  class="bg-gray-300 text-gray-800 text-xs rounded px-4 py-1 mr-2 mb-2" (click)="tagFilter(tag)" style="cursor: pointer;">{{ tag }}</span>
+          </div>
+        </div>
+
+      
+    </div>
+  </div>
+  <div style="display: none" class="sm2:flex sm2:flex-wrap md:flex md:flex-wrap mx-0">
+
+    <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 my-4" *ngFor="let game of afterGames" style="z-index: 2;">
+      
+        <div class="item player-card p-1 mx-2 hover:shadow-lg">
+          <a class="" [routerLink]="gotoGame(game.title)">
+          <div class="mx-auto mb-2">
+            <img [src]=getImageUrl(game.image) alt="" class="w-full">
+          </div>
+          <h3 *ngIf="game.title!='' && game.title!=undefined && game.title!=null" class="text-lg font-bold">{{ game.title !=null?game.title:'Game Title' }}</h3> </a>
+          <h5 *ngIf="game.viewersCount!=0 && game.viewersCount!=undefined" class="text-xs text-gray-500 mb-2">{{ game.viewersCount}} views</h5>
+          <div class="flex flex-wrap">
+            <span *ngFor="let tag of game.tags"
+                  class="bg-gray-300 text-gray-800 text-xs rounded px-4 py-1 mr-2 mb-2" (click)="tagFilter(tag)" style="cursor: pointer;">{{ tag }}</span>
+          </div>
+        </div>
+
+     
+    </div>
+  </div>
+
+  <div *ngIf="games?.length == 0">
+    <p>No game found for <span style="color: red">{{searchingText}}</span></p>
+  </div>
+
+  <a  [routerLink]="getGameRoute()" routerLinkActive="router-link-active"   *ngIf="afterGames?.length != 0 && gameStatus" class="text-red-600 text-xs mt-4 font-bold more-indicator"
+      (click)="toggleRestGames($event)" >
+    {{ showRestGames ? getAllGames() : 'See more' }}</a>
+
+</div>

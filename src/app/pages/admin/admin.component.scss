@@ -1,0 +1,67 @@
+.game-pic {
+    position: relative;
+    display: inline-block;
+    align-content: left;
+    hight:500px;
+    width:500px;
+    border:1px solid black;
+  
+    &:hover .edit {
+      display: block;
+    }
+  .img1{
+    hight:500px;
+    width:500px;
+    border:1px solid black;
+  }
+  .edit {
+      padding-top: 7px;
+      padding-right: 7px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      display: none;
+  
+      a {
+        color: #000;
+      }
+    }
+  }
+  .info{
+    align-content: right;
+  }
+  .img1{
+    width: 750px !important;
+  }
+  .left{
+    text-align: left;
+  }
+  .right{
+    text-align: right;
+  }
+  .text{
+    border:1px solid black;
+  }
+  .flex-container{
+    width: 80%;
+    min-height: 300px;
+    margin: 0 auto;
+    display: -webkit-flex; /* Safari */		
+    display: flex; /* Standard syntax */
+  }
+  .flex-container .column{
+    padding: 10px;
+    background: #dbdfe5;
+    -webkit-flex: 1; /* Safari */
+    -ms-flex: 1; /* IE 10 */
+    flex: 1; /* Standard syntax */
+  }
+  .flex-container .column.bg-alt{
+    background: #b4bac0;
+  }
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }

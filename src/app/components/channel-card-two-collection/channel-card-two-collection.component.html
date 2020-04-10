@@ -1,0 +1,20 @@
+<div class="pb-12" [ngClass]="{container: inContainer, 'mx-auto': inContainer}">
+    <div class="flex flex-wrap">
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 my-4" *ngFor="let channel of previewChannels;">
+            <div class="p-1 md:mr-4">
+                <app-channel-card-two [cardType]="cardType" [channel]="getchannel(channel)"></app-channel-card-two>
+            </div>
+        </div>
+    </div>
+    <div style="display: none;">
+        <div class="flex flex-wrap">
+            <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 my-4" *ngFor="let channel of restChannels">
+                <div class="p-1 md:mr-4">
+                    <app-channel-card-two [cardType]="cardType" [channel]="getchannel(channel)"></app-channel-card-two>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a [routerLink]="getRoute()" *ngIf="restChannels.length != 0 && channelStatus && cardsToShow.length > 4" class="text-red-600 text-xs mt-4 font-bold more-indicator" (click)="toggleRest($event)">
+        {{ showRest ? getAll() : 'See more' }}</a>
+</div>

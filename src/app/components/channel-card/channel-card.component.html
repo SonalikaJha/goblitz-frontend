@@ -1,0 +1,12 @@
+<div class="shadow-lg rounded bg-white p-4 text-center hover:shadow-xl" [routerLink]="getRoute(channel)">
+    <div class="w-24 h-24 mx-auto mb-3">
+        <img [src]="channel.userProfileImage" alt="" class="rounded-full">
+    </div>
+    <div class="font-bold">
+        @{{channel.name}}
+    </div>
+    <div class="text-gray-500 text-xs">
+        {{channel.views == 0 ? '' : channel.views + ' views'}}
+        <br> {{channel?.followersCount == 0 ? '' : channel?.followersCount + ' Followers'}}
+    </div>
+</div>

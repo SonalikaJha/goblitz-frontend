@@ -1,0 +1,46 @@
+.vertical-slider {
+  position: relative;
+  transform: scale(0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  .image-container {
+    transition: all 0.4s;
+    position: absolute;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .vertical-slider {
+    height: 75vh;
+  }
+}
+
+.home-page-stream {
+  background: url("../../../assets/images/main-cover.jpg");
+  .stream-header {
+    height: 70px;
+    width: 100%;
+    //background: rgb(0,0,0);
+    //background: linear-gradient(0deg, rgba(255,255,255,0) 0%, #000000c2 100%);
+  }
+  .live {
+    position: absolute;
+    right: 35px;
+    top: 25px;
+  }
+  .channel-info {
+    background: rgb(0,0,0);
+    background: linear-gradient(0deg, #000000c2 0%, rgba(255,255,255,0) 100%);
+    .user-image {
+      min-width: 65px;
+      margin-right: 5px;
+      img {
+        height: 50px;
+        width: 50px;
+        border: 1px solid #eee;
+      }
+    }
+  }
+}

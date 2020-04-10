@@ -1,0 +1,20 @@
+.popular-channels {
+  overflow: hidden;
+  position: relative;
+}
+
+.popular-channels::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  height: 5rem;
+  background: linear-gradient(0deg, #f7fafc, #f7fafc77, #f7fafc55, #fff0);
+}
+
+.vertical-scroller {
+  position: relative;
+}
+

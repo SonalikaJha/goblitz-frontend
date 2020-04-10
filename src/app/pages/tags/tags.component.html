@@ -1,0 +1,55 @@
+
+<div class=""></div>
+  <div class="form-body  overflow-auto px-8">
+   
+
+<div class="tag-input">
+  <tag-input [(ngModel)]="selectedTagItems"
+              [identifyBy]="'_id'"
+              [displayBy]="'tag'">
+    <tag-input-dropdown
+        [appendToBody]="true"
+        [showDropdownIfEmpty]="true"
+        [autocompleteItems]="allTag"
+        [identifyBy]="'_id'"
+        [displayBy]="'tag'">
+    </tag-input-dropdown>
+  </tag-input>
+</div>
+<div class="mt-4 mb-8">
+  <button class="bg-theme-primary focus:outline-none hover:bg-red-700 focus:bg-red-700 hover:shadow px-4 py-1 rounded shadow text-white" (click)="addTag()">Create</button>
+</div>
+  </div>
+
+  <span *ngFor="let activeTag of allactiveTag" class="bg-gray-300 text-gray-800 text-xs rounded px-4 py-1 mr-2 mb-2"> {{activeTag.tag}}
+    <span  (click)="removeTagFromList(activeTag)">&times;</span>
+</span>
+
+  
+
+
+  <div class="form-body  overflow-auto px-8">
+   
+
+    <div class="tag-input">
+      <tag-input [(ngModel)]="inActiveTags"
+                  [identifyBy]="'_id'"
+                
+                  [displayBy]="'tag'">
+        <tag-input-dropdown
+            [appendToBody]="true"
+            [showDropdownIfEmpty]="true"
+            [autocompleteItems]="allInactiveTag"
+            [identifyBy]="'_id'"
+            [displayBy]="'tag'">
+        </tag-input-dropdown>
+      </tag-input>
+    </div>
+    <div class="mt-4 mb-8">
+      <button class="bg-theme-primary focus:outline-none hover:bg-red-700 focus:bg-red-700 hover:shadow px-4 py-1 rounded shadow text-white" (click)="activeTagFromList()">Activate Tag</button>
+    </div>
+      </div>
+
+      <span *ngFor="let deactiveTag of allInactiveTag"  class="bg-gray-300 text-gray-800 text-xs rounded px-4 py-1 mr-2 mb-2"> {{deactiveTag.tag}}
+        <span  (click)="doTagActive(deactiveTag)">&#10003;</span>
+    </span>

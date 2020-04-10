@@ -1,0 +1,113 @@
+<div class="left-sidebar z-10 shadow">
+    <ul>
+        <li>
+            <a href="#" class="user-info flex align-middle justify-start">
+                <img [src]="userProfileData?.profileImage"
+                    alt="" class="rounded-full mr-2 w-10 h-10" style="border: 1px solid #eee; height: 40px;">
+                <div class="">
+                    <div class='font-bold'>{{ user.name }}</div>
+                    <div class="text-xs text-gray-500">
+                        @{{user.username}}
+                    </div>
+                    <!-- <div class="text-xs text-gray-500" *ngIf="isOnline">
+                        <i class="fa fa-circle text-green-400 text-xs"></i> Online
+                    </div>
+                    <div class="text-xs text-gray-500" *ngIf="!isOnline">
+                        <i class="fa fa-circle text-pure-red text-xs"></i> Offline
+                    </div> -->
+                </div>
+            </a>
+        </li>
+        <li class="bg-gray-100">
+            <a routerLink="profile">
+                <i class="fa fa-user"></i>
+                Profile
+            </a>
+        </li>
+        <li class="bg-gray-100">
+            <a routerLink="stream-manager">
+                <i class="fa fa-user"></i>
+                Settings
+            </a>
+        </li>
+
+<!--        <li>-->
+<!--            <a href="#">Insights</a>-->
+<!--            <ul>-->
+<!--                <li>-->
+<!--                    <a href="#">Channel Analytics</a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a href="#">Stream Summary</a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a href="#">Achievement</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a href="#">Contents</a>-->
+<!--            <ul>-->
+<!--                <li>-->
+<!--                    <a href="#">Video Producers</a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a href="#">Collections</a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a href="#">Clips</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a href="#">Preferences</a>-->
+<!--            <ul>-->
+<!--                <li>-->
+<!--                    <a href="#">Moderation</a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <a href="#">Channel</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </li>-->
+        <li>
+            <a href="#">Connections</a>
+            <ul>
+              <li >
+                <a (click)="getFollower()"
+                   routerLinkActive='text-pure-red' style="cursor: pointer;">Followers</a>
+
+                <!-- <li *ngFor="let follower of followers" >
+                <span >{{ follower }}</span>
+                <a (click)=addFollower(follower)>Followers</a>
+                </li> -->
+              </li>
+                <li>
+                    <a routerLink='/dashboard/following'
+                    routerLinkActive='text-pure-red'>Following</a>
+                </li>
+                <!-- <li>
+                    <a routerLink='/dashboard/subscriber'
+                    routerLinkActive='text-pure-red'>Subcribers</a>
+                </li> -->
+                <li>
+                        <a (click)="getvideos()"
+                        routerLinkActive='text-pure-red' style="cursor: pointer;">Videos</a>
+                    </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="main-content bg-gray-100">
+
+    <router-outlet></router-outlet>
+</div>
+<div class="right-sidebar z-10 shadow">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</div>

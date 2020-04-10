@@ -1,0 +1,28 @@
+<div>
+    <h1 class="text-3xl font-bold pt-10 pb-5 pl-10" style="font-size:40px font-bold">OBS Settings</h1>
+    <div>
+
+    </div>
+    <div class="pr-10 pl-10 pt-10">
+        <label class="block text-gray text-sm mb-2" for="usr" style="font-size: large;">URL:</label>
+        <div class="flex mb-4">
+            <div class="w-5/6 h-12">
+                <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="url" [value]="obsSettings.url" #url></div>
+            <div class="w-1/6 h-12">
+                <span button class="bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" style="cursor: pointer;" type="button" (click)="copyStream(url)" value="click to copy">copy</span></div>
+
+        </div>
+    </div>
+
+
+    <div class="pr-10 pl-10">
+        <label class="block text-gray text-sm mb-2" for="usr" style="font-size: large;">Stream_key:</label>
+        <div class="flex mb-4">
+            <div class="w-5/6 h-12">
+                <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="stream-key" [value]="obsSettings.stream_key" #stream_key></div>
+            <div class="w-1/6 h-12">
+                <span button class="bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="button" style="cursor: pointer;" (click)="copyStream(stream_key)" value="click to copy">copy</span></div>
+
+        </div>
+    </div>
+</div>

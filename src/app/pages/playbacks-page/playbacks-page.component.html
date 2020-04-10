@@ -1,0 +1,189 @@
+<div class="flex flex-wrap bg-gray-100 md:pb-64 pb-0">
+    <div class="stream-window bg-gray-100 md:p-4">
+        <!--    <div class="ad md:mb-5 md:block hidden pb-2 hidden-on-fullscreen">-->
+        <!--      <img src="https://via.placeholder.com/1920x180.jpg?text=Advertisement" alt="">-->
+        <!--    </div>-->
+        <div class="channel-links text-right" style="margin-bottom: 10px;">
+            <ul style="cursor:pointer;">
+                <li style="display: inline-block;margin-left: 20px;"><a (click)="getvideos()" routerLinkActive='text-pure-red'>All Videos</a></li>
+                <li style="display: inline-block;margin-left: 20px;"><a (click)="getFollower()" routerLinkActive='text-pure-red'>Followers</a></li>
+
+            </ul>
+        </div>
+        <div class="stream">
+            <div class="stream-player">
+                <!--                <app-hls-player [streamer]="streamer" (theatreModeEmitter)="toggleTheatre($event)" [streamKey]="streamKey"></app-hls-player>-->
+                <app-flv-player *ngIf="playbackUrl !== ''" [controls]="true" [videoFormat]="'mp4'" [src]="playbackUrl">
+                </app-flv-player>
+            </div>
+            <app-stream-info-dialog *ngIf="utilityService.streamInfoDialog"></app-stream-info-dialog>
+            <div class="streamer-info bg-gray-200 p-3 md:flex flex-wrap justify-between items-center relative">
+                <div class="left flex items-center">
+                    <img src="{{userdata?.user?.profileImage}}" style="width: 40px; height: 40px;" class="rounded-full mr-3" alt="">
+                    <div style="cursor: pointer;" class="text-lg font-bold" [routerLink]="'/' + userdata?.user?.username + '/channel'" routerLinkActive="router-link-active">@{{userdata?.user?.username}}</div>
+                    <!-- <div class="bg-pure-red px-1 text-sm font-semibold text-white mx-3" *ngIf="streamer.isLive">LIVE -->
+                </div>
+
+                <div class="right md:flex flex-wrap items-center">
+                    <button *ngIf="loginUserName != paramUserName && followStatus" (click)="followChannel()" class="bg-theme-primary focus:outline-none hover:bg-red-700 focus:bg-red-700 hover:shadow px-4 py-1 rounded shadow text-white" style="font-size: 72%;"><i class="fas fa-user-plus mr-1"></i>Follow</button>
+
+                    <button *ngIf="loginUserName != paramUserName && followStatus==false" (click)="unFollowChannel()" class="bg-theme-primary focus:outline-none hover:bg-red-700 focus:bg-red-700 hover:shadow px-4 py-1 rounded shadow text-white" style="font-size: 72%;"><i class="fas fa-user-plus mr-1"></i>Unfollow</button>
+                    <span class="md:px-4 md:py-1 py-3 font-bold text-sm mx-1 block">
+                        {{follwersCount}}
+
+                    </span>
+                    <span class="md:px-4 md:py-1 py-3 font-bold text-sm mx-1 block tooltip">
+                        <i class="fas fa-eye mr-1 "></i> {{ playBackObject?.totalPlaybackViews + ' Views' }}
+                        <span class="tooltiptext">Total Playback Views</span>
+                    </span>
+                    <span class="md:px-4 md:py-1 py-3 font-bold text-sm mx-1 block">
+
+
+                        <span>Duration {{playBackObject?.duration}} </span>
+
+                    </span>
+                </div>
+                <!--          <div class="more-options relative">-->
+                <!--            <i class="fa fa-share-alt text-lg fa-fw md:mx-2 mr-1" (click)="copyShareLink()"></i>-->
+                <!--            <i class="fa fa-cog text-lg fa-fw md:mx-2 mr-1" (click)="menu.classList.toggle('hidden');openUpdateStreamInfoForm()"></i>-->
+                <!--            &lt;!&ndash;            (mouseout)="menu.classList.add('hidden')"&ndash;&gt;-->
+                <!--            <div class="fixed hidden"-->
+                <!--                 style="z-index: 2000;-->
+                <!--                        top: 0;-->
+                <!--                        right: 0;-->
+                <!--                        left: 0;-->
+                <!--                        bottom: 0;-->
+                <!--                        margin: 0 auto;-->
+                <!--                        background: #00000059;" #menu>-->
+                <!--              <form class="bg-white shadow-md rounded pt-6 pb-8 mb-4 m-auto mt-16 text-sm w-1/3"-->
+                <!--                    [formGroup]="streamInfoForm" (ngSubmit)="updateStreamInfo($event)">-->
+                <!--                <div class="flex header justify-between mb-5 px-8">-->
+                <!--                  <span>Edit Stream Information</span>-->
+                <!--                  <span class="fa fa-times" (click)="menu.classList.add('hidden')"-->
+                <!--                        (keyup.escape)="menu.classList.add('hidden')"></span>-->
+                <!--                </div>-->
+                <!--                <div class="form-body h-60 overflow-auto px-8">-->
+                <!--                  <div class="mb-4">-->
+                <!--                    <label class="block text-gray-700 text-sm font-bold mb-2" for="titleTextarea">-->
+                <!--                      Title <span class="pl-1 text-gray-500 text-xs"-->
+                <!--                                  [innerText]="'(' + (160 - titleTextarea.value.length) + ')'"></span>-->
+                <!--                    </label>-->
+                <!--                    <textarea #titleTextarea formControlName="gameTitle"-->
+                <!--                              class="game-title-textarea appearance-none bg-gray-200 border border-transparent focus:border-theme-primary focus:outline-none focus:shadow-none focus:shadow-outline hover:border-theme-primary leading-tight px-3 py-2 rounded shadow w-full"-->
+                <!--                              id="titleTextarea"></textarea>-->
+                <!--                  </div>-->
+                <!--                  <div class="mb-4">-->
+                <!--                    <div class="flex justify-between">-->
+                <!--                      <label class="block text-gray-700 text-sm font-bold mb-2" for="goLiveInfo">-->
+                <!--                        Game Description <span class="pl-1 text-gray-500 text-xs"-->
+                <!--                                               [innerText]="'(' + (160 - goLiveInfo.value.length) + ')'"></span>-->
+                <!--                      </label>-->
+                <!--                      <a href="" class="text-theme-primary">Learn More</a>-->
+                <!--                    </div>-->
+                <!--                    <textarea #goLiveInfo formControlName="goLiveInfo"-->
+                <!--                              class="go-live-textarea appearance-none bg-gray-200 border border-transparent focus:border-theme-primary focus:outline-none focus:shadow-none focus:shadow-outline hover:border-theme-primary leading-tight px-3 py-2 rounded shadow w-full"-->
+                <!--                              id="goLiveInfo"></textarea>-->
+                <!--                  </div>-->
+                <!--                  <hr class="mb-3">-->
+                <!--                  <div class="mb-4">-->
+                <!--                    <label class="block text-gray-700 text-sm font-bold mb-2">Games</label>-->
+                <!--                    <div class="stream-language-select relative">-->
+                <!--                      <ngx-select-dropdown (change)="selectionChanged($event)" formControlName="selectData" [multiple]="true" [config]="config" [options]="dropdownOptions"></ngx-select-dropdown>-->
+                <!--                      &lt;!&ndash;                      <select class="appearance-none bg-gray-200 border border-transparent focus:border-theme-primary focus:outline-none focus:shadow-none focus:shadow-outline hover:border-theme-primary leading-tight px-3 py-2 rounded shadow w-full"&ndash;&gt;-->
+                <!--                      &lt;!&ndash;                              id="streamCategory">&ndash;&gt;-->
+                <!--                      &lt;!&ndash;                        <option value="hindi">hindi</option>&ndash;&gt;-->
+                <!--                      &lt;!&ndash;                        <option value="english">english</option>&ndash;&gt;-->
+                <!--                      &lt;!&ndash;                      </select>&ndash;&gt;-->
+                <!--                      &lt;!&ndash;                      <span class="absolute top-0 text-theme-primary leading-none flex flex-col">&ndash;&gt;-->
+                <!--                      &lt;!&ndash;                        <span class="fa fa-angle-up"></span>&ndash;&gt;-->
+                <!--                      &lt;!&ndash;                        <span class="fa fa-angle-down"></span>&ndash;&gt;-->
+                <!--                      &lt;!&ndash;                      </span>&ndash;&gt;-->
+                <!--                    </div>-->
+                <!--                    &lt;!&ndash;                    <div class="relative stream-category">&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                      <input #streamCategory&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                             class="appearance-none bg-gray-200 border border-transparent focus:border-theme-primary focus:outline-none focus:shadow-none focus:shadow-outline hover:border-theme-primary leading-tight px-3 py-2 rounded shadow w-full"&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                             id="streamCategory">&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                      <span class="absolute fa fa-times text-theme-primary" (click)="streamCategory.value = '';streamCategory.focus()"></span>&ndash;&gt;-->
+                <!--                    &lt;!&ndash;                    </div>&ndash;&gt;-->
+                <!--                  </div>-->
+                <!--                  <hr class="mb-3">-->
+                <!--                  <div class="mb-4">-->
+                <!--                    <label class="block text-gray-700 text-sm font-bold mb-2" for="tags">Tags</label>-->
+                <!--                    <div class="relative stream-category">-->
+                <!--                      <input #tags-->
+                <!--                             class="appearance-none bg-gray-200 border border-transparent focus:border-theme-primary focus:outline-none focus:shadow-none focus:shadow-outline hover:border-theme-primary leading-tight px-3 py-2 rounded shadow w-full"-->
+                <!--                             id="tags">-->
+                <!--                      <span class="absolute fa fa-times text-theme-primary" (click)="tags.value = '';tags.focus()"></span>-->
+                <!--                    </div>-->
+                <!--                  </div>-->
+                <!--                  <hr class="mb-3">-->
+                <!--                  <div class="mb-6">-->
+                <!--                    <label class="block text-gray-700 text-sm font-bold mb-2" for="streamLanguage">Tags</label>-->
+                <!--                    <div class="stream-language-select relative">-->
+                <!--                      <select #streamLanguage-->
+                <!--                              class="appearance-none bg-gray-200 border border-transparent focus:border-theme-primary focus:outline-none focus:shadow-none focus:shadow-outline hover:border-theme-primary leading-tight px-3 py-2 rounded shadow w-full"-->
+                <!--                              id="streamLanguage">-->
+                <!--                        <option value="hindi">hindi</option>-->
+                <!--                        <option value="english">english</option>-->
+                <!--                      </select>-->
+                <!--                      <span class="absolute top-0 text-theme-primary leading-none flex flex-col">-->
+                <!--                        <span class="fa fa-angle-up"></span>-->
+                <!--                        <span class="fa fa-angle-down"></span>-->
+                <!--                      </span>-->
+                <!--                    </div>-->
+                <!--                  </div>-->
+                <!--                  <div>-->
+                <!--                    <a href="" class="focus:outline-none focus:underline hover:underline text-theme-primary">You must follow our guidelines.</a>-->
+                <!--                    <div class="my-3">-->
+                <!--                      <button class="bg-theme-primary focus:outline-none hover:bg-red-700 focus:bg-red-700 hover:shadow px-4 py-1 rounded shadow text-white">Update</button>-->
+                <!--                      <button class="bg-gray-400 focus:bg-gray-500 focus:outline-none hover:bg-gray-500 hover:shadow ml-3 px-4 py-1 rounded shadow text-gray-900">Cancel</button>-->
+                <!--                    </div>-->
+                <!--                  </div>-->
+                <!--                </div>-->
+                <!--              </form>-->
+                <!--            </div>-->
+                <!--          </div>-->
+                <!--        </div>-->
+            </div>
+            <div class="stream-info mb-10 md:block hidden" *ngIf="playBackObject.length != 0">
+                <div class="flex items-center flex-wrap px-1 py-10">
+                    <img class="md:inline hidden" [src]="getImage(playBackObject?.gameImage)" style="width: 64px; height: 96px;" alt="">
+                    <div class="ml-4 text-gray-600">
+                        <div class="text-lg tracking-wide font-bold text-gray-800">{{ playBackObject?.streamTitle }}
+                        </div>
+                        <div class="text-xs">{{ playBackObject?.streamDescription }}</div>
+                        <div class="text-xs">{{ playBackObject?.gameTitle }}</div>
+
+                        <div class="text-xs">
+                            <div class="flex flex-wrap">
+                                <span *ngFor="let tag of playBackObject?.streamTags" class="bg-gray-300 text-gray-800 text-xs rounded px-4 py-1 mr-2 mb-2" (click)="filterByTagWise(tag)">{{tag }}</span>
+
+                            </div>
+                        </div>
+                        <div class="text-sm tracking-wider font-bold py-1">
+                            <!-- <span class="text-pure-red">{{ streamer.stream.totalLiveViews || 5000 }}</span> watching now | -->
+                            <!-- <span>Duration {{playBackObject?.duration}} </span> -->
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div class="hidden md:block hidden-on-fullscreen">
+            <h3 class="font-bold text-lg" *ngIf="liveStreams !== undefined && liveStreams.length !== 0">Live Stream</h3>
+            <app-channel-card-two-collection *ngIf="liveStreams !== undefined && liveStreams.length !== 0" [inContainer]="false" cardType="channel" [channels]="liveStreams">
+            </app-channel-card-two-collection>
+            <h3 class="font-bold text-lg mt-2" *ngIf="filteredBroadcastList.length != 0">Recent Broadcasts</h3>
+            <app-channel-card-two-collection *ngIf="filteredBroadcastList.length != 0" [cardsToShow]="[0,1,2,3]" [inContainer]="false" cardType="playbacks" [channels]="filteredBroadcastList">
+            </app-channel-card-two-collection>
+            <!--      <div class="ad mb-10">-->
+            <!--        <img src="https://via.placeholder.com/1920x180.jpg?text=Advertisement" alt="">-->
+            <!--      </div>-->
+            <h3 class="font-bold text-lg" *ngIf="recommendedBroadCastFilter.length != 0">Recommended Videos</h3>
+            <app-channel-card-two-collection *ngIf="recommendedBroadCastFilter.length != 0" [cardsToShow]="[0,1,2,3,4,5,6,7]" [inContainer]="false" [channels]="recommendedBroadCastFilter" cardType="playbacks">
+            </app-channel-card-two-collection>
+        </div>
+    </div>
+    <app-chat-window class="hidden-on-fullscreen" style="display: none"></app-chat-window>
+    <app-login-card *ngIf="isAuthFormVisible" [formType]="authFormType" (closeCard)="hideAuthForm()"></app-login-card>
+</div>

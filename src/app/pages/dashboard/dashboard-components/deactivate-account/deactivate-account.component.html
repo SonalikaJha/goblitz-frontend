@@ -1,0 +1,42 @@
+
+<div class="bg-theme-primary rounded-on-left-4">
+    <div class="text-center bg-white rounded-bottom-right box py-10 px-4 md:px-10 rounded-on-left-4">
+        <!-- <img src="../../../assets/images/go-blitz-logo.png" style="width: 180px; margin-bottom: 3rem;"> -->
+        <div class="font-bold text-xl text-black mb-4">Disable Account</div>
+        <form action="" class="loginForm w-full py-3 px-5" [formGroup]='emailForm' (ngSubmit)="submit()">
+            <div class="mb-3">
+                <label class="block text-left">Password:</label>
+                <input type="text"
+                    class="border border-transparent hover:bg-white focus:bg-white bg-gray-200 hover:border-theme-primary focus:border-theme-primary px-4 py-2 text-sm w-full focus:outline-none border-transparent"
+                    placeholder="Enter current paasword" autocomplete="false" formControlName='password'
+                    [ngClass]="{'border-pure-red': emailError(emailControls.password)}">
+                <div class="text-pure-red text-xs text-left" *ngIf="emailError(emailControls.password, 'required')" >
+                    Password is required
+                </div>
+                <!-- <div class="text-pure-red text-xs text-left"
+                        *ngIf="emailError(emailControls.password 'backend')">
+                        <span *ngFor="let error of emailControls.password.errors.backend">{{ error }}</span>
+                    </div> -->
+                <!-- <div class="text-pure-red text-xs text-left"
+                    *ngIf="emailError(emailControls.email, 'backend')">
+                    <span *ngFor="let error of loginControls.email.errors.backend">{{ error }}</span>
+                </div> -->
+                <div class="text-pure-red text-xs text-left"
+                    *ngIf="incurrectPassword">
+                    <span >Password incurrect</span> 
+                </div>
+            </div>
+            <!-- <div class="text-pure-red text-xs text-left"
+                    *ngIf="isMailActive">
+                    <span >Please check your mail</span>
+                </div> -->
+
+                
+           
+            <button class="rounded bg-theme-primary text-white uppercase py-2 px-6 mt-8 mb-4 text-sm"
+                type="submit">Disable</button>
+            <!-- <a href="JavaScript:void(0)" class="py-2 px-6 text-sm text-theme-primary md:hidden block"
+                (click)="switchForm()">or sign up</a> -->
+        </form>
+    </div>
+</div>

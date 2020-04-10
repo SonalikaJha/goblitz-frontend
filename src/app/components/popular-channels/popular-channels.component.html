@@ -1,0 +1,23 @@
+
+<!-- Popular channels -->
+<div class="hidden md:block items-center bg-gray-100">
+    <div class="popular-channels container flex mx-auto" [ngStyle]="{height: containerHeight + 'px'}">
+        <div class="w-full md:w-3/5 my-4 px-2">
+            <div class="flex flex-wrap">
+                <div *ngFor="let channel of channels; index as i" (mouseover)="pauseScroller(i)" (mouseout)="restartScroller(i)" class="vertical-scroller" [ngClass]="'w-1/'+channels.length" [ngStyle]="{'margin-top': '-' + channelAnimations[i]}">
+                    <div *ngFor="let item of channel" class="scroller-child mx-3 mb-8">
+                        <app-channel-card [channel]='getItems(item)'></app-channel-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-full md:w-2/5 flex items-center">
+            <div>
+                <span class="font-bold text-4xl text-black mr-2">Popular Channels</span>
+                <a  class="text-sm text-red-500" [routerLink]="['/browse/allChannels']" routerLinkActive="router-link-active" >View all</a>
+                <p class="">Explore the popular channels of streamers.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Popular channels end -->

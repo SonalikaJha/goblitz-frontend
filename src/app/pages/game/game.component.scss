@@ -1,0 +1,13 @@
+a.browse-link {
+  text-decoration: inherit;
+  cursor: pointer;
+}
+
+a:hover {
+  color: red;
+  text-underline: red;
+}
+
+.text-pure-red {
+  color: #FF0000;
+}

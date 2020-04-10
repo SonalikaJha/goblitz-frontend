@@ -1,0 +1,46 @@
+:host {
+    display: block;
+    width: 100%;
+    .chat-window {
+        height: 34vh;
+        position: static;
+        top: 72px;
+        width: 100%;
+        overflow-y: auto;
+        z-index: 998;
+        .chat {
+            &>div {
+                overflow-y: auto;
+                height: 100%;
+            }
+            .chat-box {
+                transition: all 0.4s;
+            }
+            .chat-options {
+                top: 0px;
+                right: 0px;
+                bottom: 0px;
+            }
+            .message-box {
+                border-radius: 1.5rem;
+                padding-right: 4rem;
+            }
+        }
+    }
+    @media only screen and (min-width: 720px) {
+        display: inline;
+        width: auto;
+        .chat-window {
+            position: sticky;
+            width: 350px;
+            height: calc(100vh - 72px);
+            .chat {
+                height: calc(100% - 273px);
+            }
+        }
+    }
+}
+
+.myEmojiFont {
+    font-size: 1rem;
+}

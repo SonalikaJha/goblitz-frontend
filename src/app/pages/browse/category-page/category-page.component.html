@@ -1,0 +1,67 @@
+<!-- collection -->
+
+<div class="container mx-auto md:flex items-center">
+
+    <div class="md:block flex item-center mb-1 md:ml-0 ml-4 md:mr-4 mr-0"  >
+        <div class="font-medium tracking-wider mr-3 text-xs flex items-center ml-2" style="display: inline-block;" > Filter By</div>
+        <form action="" style="display: inline-block; ">
+
+            <select  name="" (change)="addTag($event.target.value)"
+                class="border-gray-300 focus:border-pure-red hover:border-pure-red focus:outline-none text-gray-700 rounded border py-1 px-2 text-xs">
+                <option value="">Select an option</option>
+                <option *ngFor="let tag of alltag" [value]="tag.tag">{{ tag.tag }}</option>
+            </select>
+        </form>
+    </div>
+
+    <div class="md:block flex item-center mb-1 md:ml-0 ml-4 md:mr-4 mr-0">
+
+
+        <div class="md:inline-flex w-auto hidden flex-grow ml-2" >
+          <input name="searchText" [(ngModel)]="searchText" type="text" (keyup)="getCategorylList($event)"
+          style="height: 30px;"    class="bg-gray-100 p-2 text-xs rounded-sm focus:outline-none flex-grow" placeholder="Search"/>
+          <button class="bg-gray-300 text-gray-500 px-4 rounded-sm"><i
+            class="fa fa-search"></i></button>
+        </div>
+      </div>
+
+      </div>
+
+
+
+<div class="container mx-auto pb-12">
+
+
+    <span *ngFor="let tag of tagsArray" class="bg-gray-300 text-gray-800 text-xs rounded px-4 py-1 mr-2 mb-2"> {{tag}}
+        <span (click)="removeTag(tag)">&times;</span>
+    </span>
+
+    <div class="flex flex-wrap">
+        <div class="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 my-4" *ngFor="let categories of category">
+
+
+            <div class="item player-card p-2 hover:shadow-lg">
+
+                <div class="mx-auto mb-2">
+                    <img [src]="categories.image != null ? getImageUrl(categories.image) : '../../../assets/images/no-cover-game.jpg'"
+                        alt="" style="z-index: 2;" class="w-full" (click)="gotoGame(categories)">
+                </div>
+                <h3 class="text-lg font-bold">{{ categories.title }}</h3>
+                <h5 *ngIf="categories.viewersCount!=0 && categories.viewersCount!=undefined" class="text-xs text-gray-500 mb-2">
+                    {{ categories.viewersCount + ' views'}}</h5>
+                <div class="flex flex-wrap">
+                    <span *ngFor="let tag of categories.tags"
+                        class="bg-gray-300 text-gray-800 text-xs rounded px-4 py-1 mr-2 mb-2"
+                        (click)="addTag(tag)">{{tag }}</span>
+
+                </div>
+            </div>
+    </div>
+
+    </div>
+    <div *ngIf="category?.length == 0">
+        <p>No category found for filter<span style="color: red"></span></p>
+      </div>
+</div>
+
+<!-- collection end -->

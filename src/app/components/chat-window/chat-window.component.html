@@ -1,0 +1,30 @@
+<div class="chat-window bg-white shadow p-2 flex flex-col justify-end">
+    <div class="ad-window bg-white md:block hidden">
+        <!--        <div class="mb-4 flex items-center justify-center" *ngIf="isSidebarVisible">-->
+        <!--            <img src="https://via.placeholder.com/320x180.jpg?text=Advertisement" alt="">-->
+        <!--        </div>-->
+        <div class="text-center text-pure-red pb-4 border-0 border-b" *ngIf="isSidebarVisible">Stream Chats</div>
+    </div>
+
+    <div class="chat flex-grow flex flex-col justify-end text-xs mb-3" *ngIf="isSidebarVisible">
+        <div class="mb-2">
+            <div class="px-4 py-2 user-message" *ngFor="let message of messages">
+                <div>
+                    <font size="3"><span [class]="userList[message.user]">{{ message.user }}</span> : <span [innerHTML]="message.message"></span></font>
+                </div>
+            </div>
+        </div>
+        <emoji-mart (emojiSelect)="addEmoji($event)" [showPreview]="false" *ngIf="showEmojiPicker"></emoji-mart>
+        <form [formGroup]="chatForm" class="mb-3 relative" (ngSubmit)="sendMessage($event)">
+            <div class="absolute chat-options flex items-center justify-end px-1">
+                <!-- -->
+                <a class="text-xl" (click)="toggleEmojiPicker()"><i  class="far fa-fw fa-smile"></i></a>
+                <a class="text-xl px-1"><i class="fas fa-fw fa-cog"></i></a>
+            </div>
+
+            <div contenteditable="true" (keydown)="captureShift($event)" (keypress)="sendMessage($event)" (keyup)="releaseShift($event)" (click)="verifyUser()" class="chat-box border bg-gray-200 text-sm w-full hover:border-pure-red focus:border-pure-red border-gray-500 px-5 py-2 focus:outline-none message-box myEmojiClass">
+            </div>
+        </form>
+    </div>
+</div>
+<app-login-card *ngIf="isAuthFormVisible" [formType]="authFormType" (closeCard)="hideAuthForm()"></app-login-card>

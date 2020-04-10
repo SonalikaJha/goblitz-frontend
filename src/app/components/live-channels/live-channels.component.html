@@ -1,0 +1,27 @@
+<!-- Live Channels -->
+<div class="bg-gray-100">
+    <div class="py-5 container mx-auto" *ngIf="liveChannels.length > 0">
+        <h2 class="text-black text-xl pl-2 border-l-4 border-red-600 mb-6">
+            Live Channels
+        </h2>
+        <div class="sm2:flex sm2:flex-wrap md:flex md:flex-wrap mx-0">
+            <div class="w-full sm2:w-1/2 sm:w-1/4 p-2" *ngFor="let channel of cardsFour" [ngClass]="liveChannels[channel] === undefined ? 'hidden' : ''">
+                <app-channel-card-two *ngIf="liveChannels[channel] !== undefined" cardType="channel" [channel]='getChannelObject(liveChannels[channel])'>
+
+                </app-channel-card-two>
+            </div>
+        </div>
+        <div style="display: none;">
+            <div class="sm2:flex sm2:flex-wrap md:flex md:flex-wrap mx-0 overflow-hidden">
+                <div class="w-full sm2:w-1/2 sm:w-1/4 p-2" *ngFor="let channel of cardsRest" [ngClass]="liveChannels[channel] === undefined ? 'hidden' : ''">
+                    <app-channel-card-two cardType="channel" *ngIf="liveChannels[channel] !== undefined" [channel]='getChannelObject(liveChannels[channel])'>
+                        <!--getChannelObject(liveChannels[channel])-->
+                    </app-channel-card-two>
+                </div>
+            </div>
+        </div>
+        <a [routerLink]="getRoute()" routerLinkActive="router-link-active" class="text-red-600 text-xs mt-4 font-bold more-indicator" (click)="toggleRest($event)" *ngIf="restChannels.length != 0 && channelStatus">
+      {{ showRest ? getAll() : 'See more' }}</a>
+    </div>
+</div>
+<!-- Live Channels end -->

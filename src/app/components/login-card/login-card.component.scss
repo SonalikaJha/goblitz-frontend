@@ -1,0 +1,83 @@
+:host {
+  display: flex;
+  align-items: center;
+  z-index: 1234;
+  justify-content: center;
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  .backdrop {
+    background-color: #0005;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+  }
+  .auth-modal {
+    position: relative;
+    border-radius: 1rem;
+    .rounded-on-left-4 {
+      border-top-left-radius: 1rem;
+      border-bottom-left-radius: 1rem;
+    }
+    .rounded-on-right-4 {
+      border-top-right-radius: 1rem;
+      border-bottom-right-radius: 1rem;
+    }
+    .box {
+      width: 470px;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    span.close-btn {
+      cursor: pointer;
+      display: block;
+      position: absolute;
+      right: 1rem;
+      top: 1.25rem;
+      font-size: 2rem;
+      width: 2rem;
+      height: 2rem;
+      text-align: center;
+      line-height: 2rem;
+    }
+
+    span.close-btn.red-bg {
+      color: white;
+    }
+  }
+
+  .rounded-top-left {
+    border-top-left-radius: 5rem;
+  }
+
+  .rounded-bottom-right {
+    border-bottom-right-radius: 5rem;
+  }
+
+  @media only screen and (max-width: 480px) {
+    .auth-modal {
+      width: 100%;
+      & > div {
+        width: 100%;
+      }
+      .rounded-on-left-4,
+      .rounded-on-right-4 {
+        border-radius: 0px;
+      }
+      .box {
+        width: 100%;
+        height: 100vh;
+      }
+      span.close-btn.red-bg {
+        color: inherit;
+      }
+    }
+  }
+}

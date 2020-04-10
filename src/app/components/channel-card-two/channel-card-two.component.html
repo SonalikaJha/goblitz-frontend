@@ -1,0 +1,64 @@
+<div style="overflow: hidden; width: 100%; height: 169px; border: 1px solid #eee; z-index: 2; position: relative;" [ngStyle]="{'opacity': videoId == vedioIdCheck && cardType == 'playbacks' ? 0.5 : 1 }">
+    <a class="" [routerLink]="getRoute(channel)">
+        <img *ngIf="cardType == 'playbacks'" [src]="channel.image" style="height: 100%; margin:0px auto; z-index: 2;" alt="" />
+        <span style=" position: absolute;margin-left: 235px; margin-top: 5px; color: red; " *ngIf="channel?.live">
+            <span class="fa fa-circle text-theme-primary" aria-hidden="true"></span> LIVE</span>
+        <img *ngIf="cardType == 'channel'" src="{{ channel?.userCoverImage }}" style="height: 100%; margin:0px auto; z-index: 2;" alt="" />
+
+        <img src="{{ channel?.image }}" alt="" style="height: 100%; margin:0px auto; z-index:3;" />
+
+    </a>
+</div>
+<div class="my-3 flex flex-wrap align-item-unset" [ngStyle]="{'opacity': videoId == vedioIdCheck && cardType == 'playbacks' ? 0.5 : 1 }">
+    <img [src]="channel.userProfile" alt="" class="rounded-full user-profile-icon" style="z-index: 2;" />
+    <div class="pl-3 w-auto" style="width:70%; max-width: 70%;" *ngIf="cardType == 'playbacks'">
+        <a class="" [routerLink]="getRoute(channel)">
+            <h4 class="text-black text-sm" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ channel.title }}</h4>
+        </a>
+        <a class="" [routerLink]="getRoute(channel)">
+            <h5 class="text-xs text-gray-500">@{{ channel?.userName }}</h5>
+        </a>
+        <h5 class="text-xs text-gray-500">{{channel?.game}}</h5>
+        <h5 class="text-xs text-gray-500">{{channel?.totalPlaybackViews != 0 ? channel?.totalPlaybackViews + ' Views' : ''}}</h5>
+        <div class="flex flex-wrap">
+            <span *ngFor="let tag of channel.tags" class="bg-gray-300 text-gray-800 text-xs rounded px-4 py-1 mr-2 mb-2" (click)="filterByTagWise(tag)">{{tag }}</span>
+        </div>
+    </div>
+    <div class="pl-3 w-auto" style="width:70%; max-width: 70%;" *ngIf="cardType == 'channel'">
+        <a class="" [routerLink]="getRoute(channel)" *ngIf="channel?.live">
+            <h4 class="text-black text-sm" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ channel.title }}</h4>
+        </a>
+        <a class="" [routerLink]="getRoute(channel)">
+            <h5 class="text-xs text-gray-500">@{{ channel?.userName }}</h5>
+        </a>
+        <h5 class="text-xs text-gray-500" *ngIf="channel?.live">{{channel?.game}}</h5>
+        <div class="flex flex-wrap" *ngIf="channel?.live">
+            <span *ngFor="let tag of channel.tags" class="bg-gray-300 text-gray-800 text-xs rounded px-4 py-1 mr-2 mb-2" (click)="filterByTagWise(tag)">{{tag }}</span>
+        </div>
+        <p class="text-xs text-gray-500" *ngIf="!channel?.live" [routerLink]="getRoute(channel)" style="white-space: nowrap; 
+        width: 200px; 
+        overflow: hidden; text-overflow: ellipsis;">{{ channel.bio != "" ? channel.bio : '' }}</p>
+        <p class="text-xs text-gray-500" *ngIf="!channel?.live">{{ channel.followersCount !=0 ? channel.followersCount + ' Followers ' : '' }} {{ channel.videoCount !=0 ? ' | ' + channel.videoCount + ' Videos ' : '' }} {{ channel.viewersCount !=0 ? ' | ' + channel.viewersCount + ' Views' : '' }} </p>
+    </div>
+    <div class="pl-2 w-auto" style="cursor: pointer;" *ngIf="cardType == 'playbacks' && paramUserName == channel.userName" (click)="toggleModal();">
+        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+    </div>
+    <div *ngIf="showModal" class=" w-auto" style="z-index: 2; position: absolute; background-color: burlywood;">
+        <font color="blue" style="cursor: pointer;" (click)="openStreamDialogBox(channel)">Edit Stream Info <i class="fa fa-pencil-square" aria-hidden="true"></i></font><br>
+        <font color="red" style="cursor: pointer;" *ngIf="showDel" (click)="deleteStreamAlert(channel)">Delete Stream <i class="fa fa-trash" aria-hidden="true"></i></font>
+    </div>
+</div>
+
+
+<!-- 
+<div class="pl-3 w-auto" style="width:70%; max-width: 70%;">
+    <a class="" [routerLink]="getRoute(channel)">
+        <h4 class="text-black text-sm" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ channel.title }}</h4>
+    </a>
+    <a class="" [routerLink]="getRoute(channel)">
+        <h5 class="text-xs text-gray-500">@{{ channel?.userName }}</h5>
+    </a>
+    <p class="text-xs text-gray-500">{{ channel.game }}</p>
+    <div class="flex flex-wrap">
+        <span *ngFor="let tag of channel.tags" class="bg-gray-300 text-gray-800 text-xs rounded px-4 py-1 mr-2 mb-2" (click)="filterByTagWise(tag)">{{tag }}</span>
+    </div> -->

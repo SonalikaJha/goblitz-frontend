@@ -1,0 +1,41 @@
+nav {
+  z-index: 999;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+
+  span.notification {
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    font-size: 8px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    border-radius: 50%;
+  }
+  .auth-links {
+    width: 110px;
+  }
+  @media only screen and (min-width: 720px) {
+    .auth-links {
+      width: auto;
+    }
+  }
+}
+
+div.navbar-safe {
+    height: 72px;
+}
+
+
+nav.fullscreen {
+  top: -72px;
+  &+div.navbar-safe {
+      height: 0;
+  }
+}

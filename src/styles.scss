@@ -1,0 +1,90 @@
+/* You can add global styles to this file, and also import other style files */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import '../node_modules/@syncfusion/ej2-base/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-buttons/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-inputs/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-popups/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-lists/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-calendars/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-angular-calendars/styles/material.css';
+body {
+    font-family: "Poppins", sans-serif;
+    .more-indicator {
+        &::after {
+            position: relative;
+            bottom: 10px;
+            left: 5%;
+            width: 95%;
+            display: block;
+            content: "";
+            border: 0.5px solid #ddd;
+        }
+    }
+    input.custom-checkbox::before {
+        content: "";
+        display: block;
+        width: 16px;
+        position: absolute;
+        height: 16px;
+        top: -2px;
+        z-index: 3;
+        border-radius: 50%;
+        border: 2px solid gray;
+    }
+    input.custom-checkbox:not(:checked)::before {
+        left: -10px;
+        background-color: gray;
+    }
+    input.custom-checkbox:checked::before {
+        right: -10px;
+        background-color: #ffab00;
+    }
+    /* custom checkbox */
+    input.custom-checkbox::after {
+        display: block;
+        position: absolute;
+        content: "";
+        width: 25px;
+        height: 12px;
+        border: 2px solid lightgray;
+        border-radius: 6px;
+        left: -6px;
+        background: white;
+    }
+    input.custom-checkbox {
+        /* visibility: hidden; */
+        position: relative;
+    }
+    /* custom checkbox end */
+    .owl-theme {
+        .owl-nav {
+            position: absolute;
+            width: 100%;
+            margin-top: 0;
+            top: calc(50% - 17px);
+            display: flex;
+            justify-content: space-between;
+            [class*="owl-"] {
+                &:focus {
+                    outline: none;
+                }
+                &:hover {
+                    color: #232323;
+                    background-color: white;
+                }
+                &.owl-next,
+                &.owl-prev {
+                    background-color: #fffa;
+                }
+                span {
+                    font-size: 2rem;
+                    padding: 0 1rem;
+                }
+            }
+        }
+    }
+}
