@@ -23,7 +23,7 @@
         "@syncfusion/ej2-angular-calendars": "^17.4.51",
         "@types/jquery": "^3.3.31",
         "flv.js": "^1.5.0",
-        "jquery": "^3.4.1",
+        "jquery": "^3.5.0",
         "moment": "^2.24.0",
         "ng2-material-dropdown": "^0.11.0",
         "ngx-chips": "^2.1.0",
